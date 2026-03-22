@@ -1,0 +1,273 @@
+@use '../../../theme/variables' as *;
+
+
+// ─── Host ─────────────────────────────────────────────────────────
+:host {
+  display: block;
+}
+
+.navbar-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Tab bar contenedor ───────────────────────────────────────────
+.custom-tab-bar {
+  position: relative;
+  --background:    transparent;
+  --border:        none;
+  --color:         rgba(#{$v200}, 0.35);
+  --color-selected: transparent; // Controlamos el color manualmente
+  height: 72px;
+  padding: 0;
+  overflow: visible;
+  contain: none;
+}
+
+// ─── Fondo del bar ───────────────────────────────────────────────
+.tab-bar-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tab-bar-blur {
+  position: absolute; inset: 0;
+  background: rgba($bg-dark, 0.82);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+.tab-bar-border {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba($v400, 0.25) 20%,
+    rgba($cyan, 0.2)  50%,
+    rgba($v400, 0.25) 80%,
+    transparent 100%
+  );
+  animation: borderShimmer 4s linear infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes borderShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.tab-bar-glow {
+  position: absolute; bottom: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 30px;
+  background: radial-gradient(ellipse, rgba($v500, 0.2), transparent 70%);
+  filter: blur(8px);
+  animation: barGlow 3s ease-in-out infinite;
+}
+
+@keyframes barGlow {
+  0%,100% { opacity: 0.5; transform: translateX(-50%) scaleX(1); }
+  50%      { opacity: 1;   transform: translateX(-50%) scaleX(1.1); }
+}
+
+// ─── Indicador deslizante activo ──────────────────────────────────
+.active-indicator {
+  position: absolute;
+  top: 0;
+  left: calc(var(--tab-pos, 0) * 25%);
+  width: 25%;
+  height: 2px;
+  z-index: 5;
+  pointer-events: none;
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 2px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, $v400, $cyan);
+    box-shadow: 0 0 10px rgba($v400, 0.8), 0 0 20px rgba($v400, 0.4);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 25%; right: 25%;
+    height: 12px;
+    background: radial-gradient(ellipse, rgba($v400, 0.35), transparent 70%);
+    filter: blur(4px);
+  }
+}
+
+// ─── Botón de tab ─────────────────────────────────────────────────
+.nav-tab {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  --color:          rgba(#{$v200}, 0.35);
+  --color-selected: transparent;
+  --ripple-color:   transparent;
+  --padding-top:    0;
+  --padding-bottom: 0;
+  height: 72px;
+  overflow: visible;
+
+  &::part(native) {
+    padding: 0;
+    overflow: visible;
+  }
+
+  // Tap feedback
+  &:active .tab-icon-wrap { transform: scale(0.9); }
+}
+
+// ─── Contenido interior del tab ───────────────────────────────────
+.tab-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  padding-top: 8px;
+}
+
+// ─── Wrap del ícono ───────────────────────────────────────────────
+.tab-icon-wrap {
+  position: relative;
+  width: 42px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: visible;
+}
+
+// Glow detrás del ícono activo
+.tab-icon-glow {
+  position: absolute; inset: -4px;
+  border-radius: 16px;
+  background: radial-gradient(circle, rgba($v400, 0.25), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+// Ripple al tocar
+.tab-ripple {
+  position: absolute; inset: 0;
+  border-radius: 12px;
+  background: rgba($v400, 0.15);
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-tab:active .tab-ripple {
+  animation: tabRipple 0.4s ease;
+}
+
+@keyframes tabRipple {
+  0%   { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+// ─── Íconos ───────────────────────────────────────────────────────
+.tab-icon {
+  position: absolute;
+  font-size: 1.35rem;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.inactive-icon {
+  color: rgba($v200, 0.35);
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.active-icon {
+  color: $v300;
+  filter: drop-shadow(0 0 8px rgba($v400, 0.8));
+  opacity: 0;
+  transform: scale(0.6) translateY(4px);
+}
+
+// ─── Label ────────────────────────────────────────────────────────
+.tab-label {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba($v200, 0.32);
+  transition: color 0.25s ease, opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+// ─── Punto indicador inferior ─────────────────────────────────────
+.tab-dot {
+  position: absolute;
+  bottom: 8px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: $v400;
+  box-shadow: 0 0 6px $v400;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+// ─── Estado ACTIVO ────────────────────────────────────────────────
+.nav-tab.active {
+
+  .tab-icon-wrap {
+    background: rgba($v600, 0.25);
+    border: 1px solid rgba($v400, 0.2);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 4px 16px rgba($v500, 0.2);
+  }
+
+  .tab-icon-glow { opacity: 1; }
+
+  .inactive-icon {
+    opacity: 0;
+    transform: scale(1.3) translateY(-4px);
+  }
+
+  .active-icon {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .tab-label {
+    color: $v300;
+    text-shadow: 0 0 8px rgba($v400, 0.5);
+  }
+
+  .tab-dot {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ─── Ajuste de ion-tab-bar nativo ────────────────────────────────
+ion-tab-bar {
+  &::part(native) {
+    background:  transparent;
+    border-top:  none;
+    padding:     0;
+    height:      72px;
+  }
+}
+
+ion-tab-button {
+  &::part(native) {
+    background:  transparent;
+    color:       inherit;
+    padding:     0;
+  }
+}

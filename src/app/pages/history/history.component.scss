@@ -1,0 +1,517 @@
+@use '../../../theme/variables' as *;
+
+
+
+
+// ─── Base ─────────────────────────────────────────────────────────
+:host { display: block; }
+
+.history-content {
+  --background: #{$bg-deep};
+  --color: #{$white};
+  font-family: 'Exo 2', sans-serif;
+}
+
+// ─── Header ──────────────────────────────────────────────────────
+.history-header {
+  position: relative;
+  --background: transparent;
+  --border-color: transparent;
+  z-index: 100;
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba($bg-deep, 0.98), rgba($bg-deep, 0.85));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba($v400, 0.12);
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px 10px;
+  gap: 12px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  .header-title {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $white;
+  }
+  .header-sub {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: rgba($v200, 0.45);
+    margin-top: 2px;
+  }
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border: none; border-radius: 50%;
+  background: rgba($v600, 0.2);
+  border: 1px solid rgba($v400, 0.2);
+  color: $v200;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  ion-icon { font-size: 1.1rem; }
+  &:active { background: rgba($v500, 0.35); }
+}
+
+// ─── Filter tabs ─────────────────────────────────────────────────
+.filter-tabs {
+  position: relative;
+  display: flex;
+  padding: 6px 18px 12px;
+  gap: 6px;
+}
+
+.filter-tab {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  border: none;
+  background: rgba($v800, 0.3);
+  border: 1px solid rgba($v400, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+  z-index: 1;
+
+  &.active {
+    background: rgba($v600, 0.35);
+    border-color: rgba($v400, 0.35);
+    .tab-label { color: $v200; }
+    .tab-count {
+      background: $v400;
+      color: $white;
+      box-shadow: 0 0 8px rgba($v400, 0.5);
+    }
+  }
+}
+
+.tab-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba($v200, 0.4);
+  transition: color 0.25s;
+  white-space: nowrap;
+}
+
+.tab-count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: rgba($v400, 0.15);
+  color: rgba($v200, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 5px;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+// ─── Fondo ambiental ─────────────────────────────────────────────
+.ambient-bg {
+  position: fixed;
+  inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+.orb-top {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba($v600, 0.2), transparent 70%);
+  top: -80px; left: -60px;
+  animation: floatA 11s ease-in-out infinite;
+}
+
+.orb-bottom {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba($cyan, 0.08), transparent 70%);
+  bottom: -60px; right: -60px;
+  animation: floatB 13s ease-in-out infinite;
+}
+
+@keyframes floatA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,35px)} }
+@keyframes floatB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-28px)} }
+
+.grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba($v400, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($v400, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+// ─── Stats row ────────────────────────────────────────────────────
+.stats-row {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  padding: 18px 18px 6px;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+}
+
+.stat-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 8px;
+  border-radius: 14px;
+  background: rgba($v800, 0.35);
+  border: 1px solid rgba($v400, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.stat-icon {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  ion-icon {
+    font-size: 1rem;
+    color: var(--color, #{$v300});
+    filter: drop-shadow(0 0 5px var(--color, #{$v300}));
+  }
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: $white;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba($v200, 0.4);
+  text-align: center;
+  line-height: 1.3;
+}
+
+// ─── Check-in list ────────────────────────────────────────────────
+.checkin-list {
+  position: relative;
+  z-index: 10;
+  padding: 10px 18px 0;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.15s;
+
+  &.visible { opacity: 1; }
+}
+
+// ─── Date separator ───────────────────────────────────────────────
+.date-separator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 10px;
+}
+
+.sep-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba($v400, 0.2), transparent);
+}
+
+.sep-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($v200, 0.35);
+  white-space: nowrap;
+}
+
+// ─── Check-in item (timeline layout) ─────────────────────────────
+.checkin-item {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition:
+    opacity 0.45s ease var(--item-delay, 0s),
+    transform 0.45s ease var(--item-delay, 0s);
+
+  &.visible { opacity: 1; transform: translateX(0); }
+}
+
+// Columna de línea de tiempo
+.timeline-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.tl-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+
+  &.success {
+    background: rgba($green, 0.2);
+    box-shadow: 0 0 10px rgba($green, 0.4);
+    .tl-dot-inner { background: $green; }
+  }
+  &.denied {
+    background: rgba($red, 0.2);
+    box-shadow: 0 0 10px rgba($red, 0.35);
+    .tl-dot-inner { background: $red; }
+  }
+  &.pending {
+    background: rgba($orange, 0.2);
+    box-shadow: 0 0 10px rgba($orange, 0.35);
+    .tl-dot-inner { background: $orange; }
+  }
+}
+
+.tl-dot-inner {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.65); }
+}
+
+.tl-line {
+  width: 1px;
+  flex: 1;
+  min-height: 16px;
+  background: linear-gradient(180deg, rgba($v400, 0.25), rgba($v400, 0.05));
+  margin-top: 3px;
+}
+
+// Tarjeta del check-in
+.checkin-card {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 6px 10px;
+  padding: 13px 14px 13px 12px;
+  border-radius: 16px;
+  background: rgba($v800, 0.32);
+  border: 1px solid rgba($v400, 0.1);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+
+  &:active {
+    transform: scale(0.98);
+    background: rgba($v700, 0.35);
+  }
+}
+
+.card-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.025) 50%, transparent 60%);
+  pointer-events: none;
+}
+
+// Barra izquierda de color
+.card-left-bar {
+  position: absolute;
+  left: 0; top: 10%; bottom: 10%;
+  width: 2.5px;
+  border-radius: 2px;
+  &.success { background: $green; box-shadow: 0 0 6px rgba($green, 0.5); }
+  &.denied  { background: $red;   box-shadow: 0 0 6px rgba($red, 0.5); }
+  &.pending { background: $orange; box-shadow: 0 0 6px rgba($orange, 0.5); }
+}
+
+// Ícono de lugar
+.checkin-icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: rgba($v600, 0.2);
+  border: 1px solid rgba($v400, 0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkin-icon {
+  font-size: 1.15rem;
+  color: $v300;
+  filter: drop-shadow(0 0 5px rgba($v400, 0.4));
+}
+
+// Info del check-in
+.checkin-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.checkin-place {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkin-detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  color: rgba($v200, 0.5);
+  ion-icon { font-size: 0.75rem; flex-shrink: 0; }
+}
+
+.checkin-time-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  color: rgba($v200, 0.4);
+  ion-icon { font-size: 0.72rem; flex-shrink: 0; }
+}
+
+.checkin-separator { color: rgba($v400, 0.3); }
+.checkin-zone { color: rgba($cyan, 0.6); }
+
+// Badge de estado
+.checkin-status-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.checkin-status-badge {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  ion-icon { font-size: 1rem; }
+
+  &.success {
+    background: rgba($green, 0.15);
+    border: 1px solid rgba($green, 0.3);
+    ion-icon { color: $green; filter: drop-shadow(0 0 4px $green); }
+  }
+  &.denied {
+    background: rgba($red, 0.15);
+    border: 1px solid rgba($red, 0.3);
+    ion-icon { color: $red; filter: drop-shadow(0 0 4px $red); }
+  }
+  &.pending {
+    background: rgba($orange, 0.15);
+    border: 1px solid rgba($orange, 0.3);
+    ion-icon { color: $orange; filter: drop-shadow(0 0 4px $orange); }
+  }
+}
+
+.checkin-status-label {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  &.success { color: $green; }
+  &.denied  { color: $red; }
+  &.pending { color: $orange; }
+}
+
+// ─── Empty state ─────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 12px;
+  position: relative;
+}
+
+.empty-ring {
+  position: absolute;
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 2px solid rgba($v400, 0.25);
+  animation: spinSlow 5s linear infinite;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px; left: 30%;
+    width: 40%; height: 7px;
+    background: rgba($v400, 0.5);
+    border-radius: 4px;
+    filter: blur(3px);
+  }
+}
+
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+.empty-icon {
+  font-size: 2.4rem;
+  color: rgba($v300, 0.4);
+  margin-top: 8px;
+}
+
+.empty-title {
+  margin: 4px 0 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: rgba($v200, 0.5);
+}
+
+.empty-desc {
+  margin: 0;
+  font-size: 0.72rem;
+  color: rgba($v100, 0.3);
+  text-align: center;
+}

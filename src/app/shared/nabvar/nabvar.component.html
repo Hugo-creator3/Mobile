@@ -1,0 +1,94 @@
+<ion-tabs class="navbar-tabs">
+
+  <router-outlet></router-outlet>
+
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+    <!-- Fondo glassmorphism del tab bar -->
+    <div class="tab-bar-bg">
+      <div class="tab-bar-blur"></div>
+      <div class="tab-bar-border"></div>
+      <div class="tab-bar-glow"></div>
+    </div>
+
+    <!-- Indicador deslizante activo -->
+    <div class="active-indicator" [style.--tab-pos]="activeIndex"></div>
+
+    <!-- Inicio -->
+    <ion-tab-button
+      routerLink="/main"
+      tab="inicio"
+      class="nav-tab"
+      [class.active]="activeTab === 'inicio'"
+      (click)="setTab('inicio', 0)">
+      <div class="tab-inner">
+        <div class="tab-icon-wrap">
+          <div class="tab-icon-glow"></div>
+          <ion-icon name="home-outline"    class="tab-icon inactive-icon"></ion-icon>
+          <ion-icon name="home"            class="tab-icon active-icon"></ion-icon>
+          <div class="tab-ripple"></div>
+        </div>
+        <span class="tab-label">Inicio</span>
+      </div>
+      <div class="tab-dot"></div>
+    </ion-tab-button>
+
+    <!-- Perfil -->
+    <ion-tab-button
+      routerLink="/profile"
+      tab="perfil"
+      class="nav-tab"
+      [class.active]="activeTab === 'perfil'"
+      (click)="setTab('perfil', 1)">
+      <div class="tab-inner">
+        <div class="tab-icon-wrap">
+          <div class="tab-icon-glow"></div>
+          <ion-icon name="person-outline"  class="tab-icon inactive-icon"></ion-icon>
+          <ion-icon name="person"          class="tab-icon active-icon"></ion-icon>
+          <div class="tab-ripple"></div>
+        </div>
+        <span class="tab-label">Perfil</span>
+      </div>
+      <div class="tab-dot"></div>
+    </ion-tab-button>
+
+    <!-- Historial -->
+    <ion-tab-button
+      routerLink="/history"
+      tab="historial"
+      class="nav-tab"
+      [class.active]="activeTab === 'historial'"
+      (click)="setTab('historial', 2)">
+      <div class="tab-inner">
+        <div class="tab-icon-wrap">
+          <div class="tab-icon-glow"></div>
+          <ion-icon name="time-outline"    class="tab-icon inactive-icon"></ion-icon>
+          <ion-icon name="time"            class="tab-icon active-icon"></ion-icon>
+          <div class="tab-ripple"></div>
+        </div>
+        <span class="tab-label">Historial</span>
+      </div>
+      <div class="tab-dot"></div>
+    </ion-tab-button>
+
+    <!-- Ajustes -->
+    <ion-tab-button
+      routerLink="/settings"
+      tab="configuracion"
+      class="nav-tab"
+      [class.active]="activeTab === 'configuracion'"
+      (click)="setTab('configuracion', 3)">
+      <div class="tab-inner">
+        <div class="tab-icon-wrap">
+          <div class="tab-icon-glow"></div>
+          <ion-icon name="settings-outline" class="tab-icon inactive-icon"></ion-icon>
+          <ion-icon name="settings"          class="tab-icon active-icon"></ion-icon>
+          <div class="tab-ripple"></div>
+        </div>
+        <span class="tab-label">Ajustes</span>
+      </div>
+      <div class="tab-dot"></div>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

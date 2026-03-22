@@ -1,0 +1,142 @@
+<ion-header class="history-header">
+  <div class="header-bg"></div>
+  <div class="header-inner">
+    <button class="icon-btn" (click)="onBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <div class="header-center">
+      <span class="header-title">Historial</span>
+      <span class="header-sub">{{ totalCheckins }} registros totales</span>
+    </div>
+    <button class="icon-btn" (click)="onFilter()">
+      <ion-icon name="options-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Filtros de categoría -->
+  <div class="filter-tabs">
+    <button
+      class="filter-tab"
+      *ngFor="let tab of tabs"
+      [class.active]="activeTab === tab.key"
+      (click)="setTab(tab.key)"
+    >
+      <span class="tab-label">{{ tab.label }}</span>
+      <span class="tab-count">{{ tab.count }}</span>
+    </button>
+    <div class="tab-indicator" [style.--tab-index]="activeTabIndex"></div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="history-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-top"></div>
+    <div class="ambient-orb orb-bottom"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Resumen estadístico -->
+  <div class="stats-row" [class.visible]="pageReady">
+    <div class="stat-card" *ngFor="let s of stats">
+      <div class="stat-icon" [style.--color]="s.color">
+        <ion-icon [name]="s.icon"></ion-icon>
+      </div>
+      <span class="stat-value">{{ s.value }}</span>
+      <span class="stat-label">{{ s.label }}</span>
+    </div>
+  </div>
+
+  <!-- Lista agrupada por fecha -->
+  <div class="checkin-list" [class.visible]="pageReady">
+
+    <ng-container *ngFor="let group of filteredGroups">
+      <!-- Separador de fecha -->
+      <div class="date-separator">
+        <div class="sep-line"></div>
+        <span class="sep-label">{{ group.dateLabel }}</span>
+        <div class="sep-line"></div>
+      </div>
+
+      <!-- Items del grupo -->
+      <div
+        class="checkin-item"
+        *ngFor="let item of group.items; let i = index"
+        [class.visible]="pageReady"
+        [style.--item-delay]="(i * 0.06) + 's'"
+        [class.success]="item.status === 'success'"
+        [class.denied]="item.status === 'denied'"
+        [class.pending]="item.status === 'pending'"
+        (click)="onItemTap(item)"
+      >
+        <!-- Línea de tiempo -->
+        <div class="timeline-col">
+          <div class="tl-dot" [class.success]="item.status === 'success'"
+                              [class.denied]="item.status === 'denied'"
+                              [class.pending]="item.status === 'pending'">
+            <div class="tl-dot-inner"></div>
+          </div>
+          <div class="tl-line" *ngIf="!item.isLast"></div>
+        </div>
+
+        <!-- Tarjeta del check-in -->
+        <div class="checkin-card">
+          <div class="card-shimmer"></div>
+          <div class="card-left-bar" [class.success]="item.status === 'success'"
+                                     [class.denied]="item.status === 'denied'"
+                                     [class.pending]="item.status === 'pending'"></div>
+
+          <!-- Ícono de ubicación/tipo -->
+          <div class="checkin-icon-wrap">
+            <ion-icon [name]="item.locationIcon" class="checkin-icon"></ion-icon>
+          </div>
+
+          <!-- Info principal -->
+          <div class="checkin-info">
+            <div class="checkin-place">{{ item.location }}</div>
+            <div class="checkin-detail">
+              <ion-icon name="card-outline"></ion-icon>
+              {{ item.cardUsed }}
+            </div>
+            <div class="checkin-time-row">
+              <ion-icon name="time-outline"></ion-icon>
+              <span>{{ item.time }}</span>
+              <span class="checkin-separator">·</span>
+              <ion-icon name="location-outline"></ion-icon>
+              <span class="checkin-zone">{{ item.zone }}</span>
+            </div>
+          </div>
+
+          <!-- Estado -->
+          <div class="checkin-status-wrap">
+            <div class="checkin-status-badge"
+                 [class.success]="item.status === 'success'"
+                 [class.denied]="item.status === 'denied'"
+                 [class.pending]="item.status === 'pending'">
+              <ion-icon [name]="item.statusIcon"></ion-icon>
+            </div>
+            <span class="checkin-status-label"
+                  [class.success]="item.status === 'success'"
+                  [class.denied]="item.status === 'denied'"
+                  [class.pending]="item.status === 'pending'">
+              {{ item.statusLabel }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="filteredGroups.length === 0">
+      <div class="empty-ring"></div>
+      <ion-icon name="scan-outline" class="empty-icon"></ion-icon>
+      <p class="empty-title">Sin registros</p>
+      <p class="empty-desc">No hay check-ins en este período</p>
+    </div>
+
+  </div>
+
+  <div style="height: 40px;"></div>
+
+</ion-content>

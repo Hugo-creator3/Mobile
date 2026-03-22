@@ -1,0 +1,281 @@
+<ion-content [fullscreen]="true" class="register-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+  </div>
+
+  <!-- Cabecera con avatar -->
+  <div class="header-section">
+    <div class="brand-row">
+      <span class="brand-v">VIRTUAL</span><span class="brand-id">ID</span>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <div class="form-section">
+
+    <div class="form-header">
+      <h1 class="welcome-text">Crea tu cuenta</h1>
+      <p class="welcome-sub">Completa tus datos para registrarte</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Grupo: Datos personales
+    ═══════════════════════════════════════════ -->
+    <div class="field-group">
+      <div class="group-label">
+        <span class="gl-line"></span>
+        Datos Personales
+        <span class="gl-line"></span>
+      </div>
+
+      <!-- Nombre -->
+      <div class="field-wrap" [class.field-error]="hasError('nombre')">
+        <div class="field-icon" style="--f-color:#a855f7">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="nombre"
+            placeholder="Nombre"
+            (ionBlur)="markTouched('nombre')"
+            (ionInput)="markTouched('nombre')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('nombre')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('nombre') }}
+      </p>
+
+      <!-- Apellidos -->
+      <div class="field-wrap" [class.field-error]="hasError('apellidos')">
+        <div class="field-icon" style="--f-color:#c084fc">
+          <ion-icon name="person-add-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="apellidos"
+            placeholder="Apellidos"
+            (ionBlur)="markTouched('apellidos')"
+            (ionInput)="markTouched('apellidos')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('apellidos')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('apellidos') }}
+      </p>
+
+      <!-- Género -->
+      <div class="field-wrap" [class.field-error]="hasError('genero')">
+        <div class="field-icon" style="--f-color:#e879f9">
+          <ion-icon name="transgender-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input select-item">
+          <ion-select
+            [(ngModel)]="genero"
+            placeholder="Género"
+            interface="popover"
+            (ionChange)="markTouched('genero')">
+            <ion-select-option value="m">Masculino</ion-select-option>
+            <ion-select-option value="f">Femenino</ion-select-option>
+            <ion-select-option value="o">Otro</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('genero')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('genero') }}
+      </p>
+
+  <!-- Fecha de nacimiento -->
+<div class="field-wrap" [class.field-error]="hasError('fecha_nacimiento')">
+  <div class="field-icon" style="--f-color:#fbbf24">
+    <ion-icon name="calendar-outline"></ion-icon>
+  </div>
+  <ion-item lines="none" class="custom-input datetime-item">
+    <ion-label class="date-label" color="medium">Fecha de Nac.</ion-label>
+    <ion-datetime-button datetime="dob" id="dob-btn"></ion-datetime-button>
+  </ion-item>
+</div>
+
+<!-- Modal FUERA del ion-item y del field-wrap -->
+<ion-modal trigger="dob-btn" [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      id="dob"
+      presentation="date"
+      [max]="maxDate"
+      (ionChange)="onFechaChange($event)">
+    </ion-datetime>
+  </ng-template>
+</ion-modal>
+
+<p class="error-msg" *ngIf="hasError('fecha_nacimiento')">
+  <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('fecha_nacimiento') }}
+</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Grupo: Contacto
+    ═══════════════════════════════════════════ -->
+    <div class="field-group">
+      <div class="group-label">
+        <span class="gl-line"></span>
+        Contacto
+        <span class="gl-line"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="field-wrap" [class.field-error]="hasError('email')">
+        <div class="field-icon" style="--f-color:#22d3ee">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="email"
+            type="email"
+            placeholder="Correo electrónico"
+            (ionBlur)="markTouched('email')"
+            (ionInput)="markTouched('email')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('email')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('email') }}
+      </p>
+
+      <!-- Teléfono -->
+      <div class="field-wrap" [class.field-error]="hasError('telefono')">
+        <div class="field-icon" style="--f-color:#4ade80">
+          <ion-icon name="call-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="telefono"
+            type="tel"
+            placeholder="Teléfono"
+            (ionBlur)="markTouched('telefono')"
+            (ionInput)="markTouched('telefono')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('telefono')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('telefono') }}
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Grupo: Seguridad
+    ═══════════════════════════════════════════ -->
+    <div class="field-group">
+      <div class="group-label">
+        <span class="gl-line"></span>
+        Seguridad
+        <span class="gl-line"></span>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="field-wrap" [class.field-error]="hasError('password')">
+        <div class="field-icon" style="--f-color:#f87171">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="password"
+            type="password"
+            placeholder="Contraseña"
+            (ionBlur)="markTouched('password')"
+            (ionInput)="markTouched('password')">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Indicador de fortaleza -->
+      <div class="password-strength-wrap" *ngIf="password.length > 0">
+        <div class="strength-bars">
+          <span class="bar" [class.active]="passwordStrength >= 1" [class]="passwordStrength >= 1 ? passwordStrengthClass : ''"></span>
+          <span class="bar" [class.active]="passwordStrength >= 2" [class]="passwordStrength >= 2 ? passwordStrengthClass : ''"></span>
+          <span class="bar" [class.active]="passwordStrength >= 3" [class]="passwordStrength >= 3 ? passwordStrengthClass : ''"></span>
+          <span class="bar" [class.active]="passwordStrength >= 4" [class]="passwordStrength >= 4 ? passwordStrengthClass : ''"></span>
+        </div>
+        <span class="strength-label" [class]="passwordStrengthClass">{{ passwordStrengthLabel }}</span>
+      </div>
+
+      <p class="error-msg" *ngIf="hasError('password')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('password') }}
+      </p>
+
+      <!-- Confirmar contraseña -->
+      <div class="field-wrap" [class.field-error]="hasError('confirmPassword')">
+        <div class="field-icon" style="--f-color:#fb923c">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="confirmPassword"
+            type="password"
+            placeholder="Confirmar contraseña"
+            (ionBlur)="markTouched('confirmPassword')"
+            (ionInput)="markTouched('confirmPassword')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('confirmPassword')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('confirmPassword') }}
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Grupo: Institución
+    ═══════════════════════════════════════════ -->
+    <div class="field-group">
+      <div class="group-label">
+        <span class="gl-line"></span>
+        Institución
+        <span class="gl-line"></span>
+      </div>
+
+      <div class="field-wrap" [class.field-error]="hasError('clave_institucion')">
+        <div class="field-icon" style="--f-color:#a855f7">
+          <ion-icon name="business-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" class="custom-input">
+          <ion-input
+            [(ngModel)]="clave_institucion"
+            placeholder="Clave de institución"
+            (ionBlur)="markTouched('clave_institucion')"
+            (ionInput)="markTouched('clave_institucion')">
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="error-msg" *ngIf="hasError('clave_institucion')">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMsg('clave_institucion') }}
+      </p>
+    </div>
+
+    <!-- Botón de registro -->
+    <div class="cta-wrap">
+      <button class="register-btn" (click)="register()">
+        <span class="rb-glow"></span>
+        <span class="rb-ripple"></span>
+        <span class="rb-ripple delay"></span>
+        <span class="rb-inner">
+          <ion-icon name="person-add-outline" class="rb-icon"></ion-icon>
+          Registrarse
+        </span>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer-text">
+      ¿Ya tienes cuenta?
+      <span class="footer-link" (click)="GoLogin()">Inicia sesión</span>
+    </p>
+
+  </div>
+
+</ion-content>

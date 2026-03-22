@@ -1,0 +1,88 @@
+<ion-content [fullscreen]="true" class="home-content">
+
+  <!-- Fondo animado con partículas y formas geométricas -->
+  <div class="bg-layer">
+    <div class="hex-grid">
+      <div class="hex" *ngFor="let h of hexagons" [style.left]="h.x" [style.top]="h.y" [style.animationDelay]="h.delay"></div>
+    </div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="scan-line"></div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-wrapper">
+
+    <!-- Logo / Ícono central -->
+    <div class="logo-section">
+      <div class="id-card-wrapper">
+        <div class="id-card">
+          <div class="id-card__chip">
+            <div class="chip-lines">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="id-card__avatar">
+            <div class="avatar-ring"></div>
+            <ion-icon name="person-outline" class="avatar-icon"></ion-icon>
+          </div>
+          <div class="id-card__data">
+            <div class="data-line data-line--long"></div>
+            <div class="data-line data-line--short"></div>
+          </div>
+          <div class="id-card__qr">
+            <div class="qr-dot" *ngFor="let d of qrDots"></div>
+          </div>
+          <div class="id-card__glow"></div>
+        </div>
+
+        <!-- Anillos orbitales -->
+        <div class="orbit orbit-1">
+          <div class="orbit-dot">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="orbit orbit-2">
+          <div class="orbit-dot">
+            <ion-icon name="finger-print-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="orbit orbit-3">
+          <div class="orbit-dot">
+            <ion-icon name="location-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Textos -->
+    <div class="text-section">
+      <p class="label-tag">IDENTIDAD DIGITAL SEGURA</p>
+      <h1 class="title">
+        <span class="title-virtual">VIRTUAL</span><span class="title-id">ID</span>
+      </h1>
+      <p class="subtitle">
+        Tu credencial institucional<br>
+        <span class="highlight">siempre contigo.</span>
+      </p>
+    </div>
+
+    <!-- Botón CTA -->
+    <div class="cta-section">
+      <button class="cta-button" (click)="onStart()">
+        <span class="cta-button__bg"></span>
+        <span class="cta-button__content">
+          <span class="cta-button__text">Comenzar</span>
+          <span class="cta-button__icon">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </span>
+        </span>
+        <span class="cta-button__ripple"></span>
+      </button>
+
+    </div>
+
+  </div>
+
+</ion-content>

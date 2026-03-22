@@ -1,0 +1,413 @@
+@use '../../../theme/variables' as *;
+
+
+// ─── Variables ────────────────────────────────────────────────────
+
+
+// ─── Base ─────────────────────────────────────────────────────────
+:host { display: block; }
+
+.register-content {
+  --background: #{$bg-deep};
+  --color:      #{$white};
+  font-family: 'Exo 2', sans-serif;
+}
+
+// ─── Fondo ambiental ─────────────────────────────────────────────
+.ambient-bg {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px);
+}
+.orb-1 {
+  width: 360px; height: 360px; top: -80px; left: 50%;
+  background: radial-gradient(circle, rgba($v600, 0.28), transparent 70%);
+  transform: translateX(-50%);
+  animation: o1 8s ease-in-out infinite;
+}
+.orb-2 {
+  width: 240px; height: 240px; bottom: 100px; left: -60px;
+  background: radial-gradient(circle, rgba($cyan, 0.1), transparent 70%);
+  animation: o2 11s ease-in-out infinite;
+}
+.orb-3 {
+  width: 200px; height: 200px; bottom: 60px; right: -50px;
+  background: radial-gradient(circle, rgba($pink, 0.1), transparent 70%);
+  animation: o3 9s ease-in-out infinite;
+}
+@keyframes o1 { 0%,100%{transform:translateX(-50%) scale(1)} 50%{transform:translateX(-50%) scale(1.12)} }
+@keyframes o2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-20px)} }
+@keyframes o3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-15px,15px)} }
+
+.grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba($v400, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($v400, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.scan-line {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba($cyan, 0.35), transparent);
+  animation: scanMove 6s linear infinite;
+}
+@keyframes scanMove {
+  0%  { top:0%;   opacity:0; } 5%{ opacity:1; } 95%{ opacity:1; } 100%{ top:100%; opacity:0; }
+}
+
+// ─── Header / Avatar ─────────────────────────────────────────────
+.header-section {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 52px 24px 24px;
+  gap: 14px;
+}
+
+.brand-row {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem; font-weight: 900; letter-spacing: 0.1em;
+  .brand-v  { color: $white; }
+  .brand-id { color: $v300; text-shadow: 0 0 12px rgba($v400, 0.8); }
+}
+
+// Avatar con anillos
+.avatar-upload-wrap {
+  position: relative;
+  width: 100px; height: 100px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.avatar-ring {
+  position: absolute; border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.ring-a {
+  inset: -10px;
+  border-top-color: rgba($v400, 0.55);
+  border-right-color: rgba($v400, 0.1);
+  animation: spin 4s linear infinite;
+}
+
+.ring-b {
+  inset: -18px;
+  border-bottom-color: rgba($cyan, 0.35);
+  border-left-color: rgba($cyan, 0.08);
+  animation: spin 7s linear infinite reverse;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.avatar-frame {
+  position: relative;
+  width: 100px; height: 100px;
+  border-radius: 50%; overflow: hidden;
+  border: 2px solid rgba($v300, 0.3);
+  box-shadow: 0 0 0 3px rgba($v700, 0.5), 0 8px 28px rgba($v600, 0.45);
+}
+
+.profile-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+.avatar-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba($v900, 0.35) 100%);
+}
+
+.upload-badge {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, $v500, $v600);
+  border: 2px solid $bg-deep;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 10px rgba($v400, 0.5);
+  ion-icon { font-size: 0.85rem; color: $white; }
+}
+
+.avatar-hint {
+  margin: 0;
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba($v200, 0.35);
+}
+
+// ─── Sección de formulario ────────────────────────────────────────
+.form-section {
+  position: relative; z-index: 10;
+  padding: 0 20px 40px;
+  display: flex; flex-direction: column; gap: 22px;
+}
+
+.form-header {
+  text-align: center;
+  .welcome-text {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem; font-weight: 700; letter-spacing: 0.05em;
+    background: linear-gradient(135deg, $white, $v300);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .welcome-sub {
+    margin: 6px 0 0;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: rgba($v200, 0.4);
+  }
+}
+
+// ─── Grupo de campos ─────────────────────────────────────────────
+.field-group {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.group-label {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba($v200, 0.4);
+  white-space: nowrap;
+}
+
+.gl-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba($v400, 0.2), transparent);
+}
+
+// ─── Field wrap ───────────────────────────────────────────────────
+.field-wrap {
+  display: flex; align-items: stretch; gap: 0;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba($v400, 0.12);
+  background: rgba($v800, 0.3);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: rgba($v400, 0.4);
+    box-shadow: 0 0 0 3px rgba($v400, 0.07), 0 4px 16px rgba($v500, 0.1);
+  }
+}
+
+.field-icon {
+  width: 46px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03);
+  border-right: 1px solid rgba($v400, 0.1);
+  ion-icon {
+    font-size: 1.05rem;
+    color: var(--f-color, #{$v300});
+    filter: drop-shadow(0 0 5px var(--f-color, #{$v300}));
+  }
+}
+
+// Ion item reseteado
+.custom-input {
+  flex: 1;
+  --background:           transparent;
+  --border-color:         transparent;
+  --highlight-color-focused: transparent;
+  --padding-start:        14px;
+  --padding-end:          14px;
+  --padding-top:          0;
+  --padding-bottom:       0;
+  --min-height:           50px;
+  --color:                rgba(#{$white}, 0.88);
+  --placeholder-color:    rgba(#{$v200}, 0.35);
+  --placeholder-opacity:  1;
+
+  ion-input {
+    --color:              rgba(#{$white}, 0.88);
+    --placeholder-color:  rgba(#{$v200}, 0.35);
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+  }
+
+  ion-select {
+    color: rgba($white, 0.88);
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    --placeholder-color: rgba(#{$v200}, 0.35);
+    width: 100%;
+  }
+}
+
+// Item con datetime-button
+.datetime-item {
+  display: flex; align-items: center; justify-content: space-between;
+
+  .date-label {
+    font-size: 0.88rem;
+    color: rgba($v200, 0.45) !important;
+    letter-spacing: 0.04em;
+  }
+
+  ion-datetime-button {
+    --background: rgba(#{$v600}, 0.25);
+    --background-hover: rgba(#{$v500}, 0.3);
+    --color: #{$v200};
+    border-radius: 10px;
+    font-size: 0.8rem;
+  }
+}
+
+// ─── Botón de registro ────────────────────────────────────────────
+.cta-wrap {
+  padding-top: 6px;
+}
+
+.register-btn {
+  position: relative; width: 100%; height: 56px;
+  border: none; border-radius: 16px;
+  cursor: pointer; overflow: hidden;
+  outline: none; -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.98);
+    .rb-glow { opacity: 1.5; }
+  }
+}
+
+.rb-glow {
+  position: absolute; inset: -3px; border-radius: 18px;
+  background: linear-gradient(135deg, $v400, $cyan);
+  opacity: 0; filter: blur(14px); z-index: 0;
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse { 0%,100%{opacity:0.2} 50%{opacity:0.5} }
+
+.rb-ripple {
+  position: absolute; inset: 0; border-radius: 16px;
+  border: 1px solid rgba($v300, 0.35);
+  animation: btnRipple 2.5s ease-out infinite;
+  &.delay { animation-delay: 1.25s; }
+}
+
+@keyframes btnRipple {
+  0%  { transform:scale(1);    opacity:0.6; }
+  100%{ transform:scale(1.04); opacity:0; }
+}
+
+.rb-inner {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba($v600, 0.9), rgba($v700, 0.9));
+  border: 1px solid rgba($v300, 0.18);
+  border-radius: 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: $white;
+  text-shadow: 0 0 10px rgba($white, 0.3);
+}
+
+.rb-icon { font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba($white, 0.4)); }
+
+// ─── Footer ───────────────────────────────────────────────────────
+.footer-text {
+  margin: 0; text-align: center;
+  font-size: 0.75rem; letter-spacing: 0.06em;
+  color: rgba($v200, 0.35);
+}
+
+.footer-link {
+  color: $v300;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba($v400, 0.4);
+  transition: color 0.2s;
+  &:active { color: $v200; }
+}
+
+// ── Borde rojo en campo con error ─────────────────────────────────────────────
+.field-error {
+  .custom-input {
+    border-color: rgba(248, 113, 113, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.4),
+                inset 0 0 12px rgba(248, 113, 113, 0.08) !important;
+  }
+ 
+  .field-icon {
+    --f-color: #f87171 !important;
+  }
+}
+ 
+// ── Mensaje de error ──────────────────────────────────────────────────────────
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 4px 0 8px 12px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #f87171;
+  letter-spacing: 0.01em;
+  animation: errorSlideIn 0.2s ease forwards;
+ 
+  ion-icon {
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+}
+ 
+@keyframes errorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+ 
+// ── Indicador de fortaleza de contraseña ──────────────────────────────────────
+.password-strength-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 12px 4px;
+}
+ 
+.strength-bars {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+ 
+  .bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+ 
+    &.active {
+      &.weak   { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.5); }
+      &.fair   { background: #fbbf24; box-shadow: 0 0 6px rgba(251,191,36,0.5);  }
+      &.good   { background: #34d399; box-shadow: 0 0 6px rgba(52,211,153,0.5);  }
+      &.strong { background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.6);  }
+    }
+  }
+}
+ 
+.strength-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  min-width: 48px;
+  text-align: right;
+  transition: color 0.3s ease;
+ 
+  &.weak   { color: #f87171; }
+  &.fair   { color: #fbbf24; }
+  &.good   { color: #34d399; }
+  &.strong { color: #4ade80; }
+}

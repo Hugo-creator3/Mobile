@@ -1,0 +1,7 @@
+{
+  "name": "VIRTUALID_MOBILE",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

@@ -1,0 +1,186 @@
+<ion-header class="card-header">
+
+  <div class="header-bg"></div>
+
+  <div class="header-inner">
+
+    <div class="header-center">
+      <button class="icon-btn" (click)="onBack()"> <ion-icon name="chevron-back-outline"></ion-icon> </button>
+      <span class="header-title">Credencial</span>
+      <span class="header-sub">{{ card?.institution }}</span>
+      
+    </div>
+
+  </div>
+
+  
+</ion-header>
+
+<ion-content  class="card-content">
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-card" [style.background]="card?.accentColor"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="card-stage" [class.visible]="pageReady">
+    <div 
+      class="card-3d-wrap" 
+      [class.flipped]="isFlipped" 
+      (click)="isFlipped = !isFlipped"
+      *ngIf="card"
+    >
+      <div class="card-face" [style.background]="'linear-gradient(135deg, ' + card.accentColor + ' 0%, ' + card.accentAlt + ' 100%)'">
+        <div class="cf-noise"></div>
+        <div class="cf-shimmer"></div>
+        <div class="cf-accent-bar"></div>
+
+        <div class="cf-top-row">
+          <div class="cf-logo-chip">
+            <span class="cl-id">{{ card?.institution }}</span>
+          </div>
+          <div class="cf-nfc">
+            <ion-icon name="wifi-outline"></ion-icon>
+          </div>
+        </div>
+
+        <div class="cf-chip">
+          <div class="chip-body">
+            <div class="chip-grid">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cf-holder">
+          <div class="cf-avatar">
+           <img [src]="userPhoto" alt="avatar" /></div>
+          <div class="cf-name">{{ card.holderName }}</div>
+        </div>
+
+        <div class="cf-footer">
+          <div class="cf-id-block">
+            <span class="cfi-label">ID NUMBER</span>
+          </div>
+          <div class="cf-status" [class.active]="true">
+            <span class="cfs-dot"></span>
+            ACTIVE
+          </div>
+        </div>
+      </div>
+
+      <div class="card-face card-back">
+        <div class="cb-stripe"></div>
+        <div class="cb-qr-section">
+          <div class="cb-qr-wrap">
+            <div class="qr-scan-line"></div>
+            <div class="qr-placeholder"></div> 
+          </div>
+          <div class="cb-totp-wrap">
+            <span class="totp-label">CÓDIGO DINÁMICO</span>
+            <span class="totp-code">882 931</span>
+            <div class="totp-timer-bar">
+              <div class="totp-timer-fill" style="width: 60%"></div>
+            </div>
+          </div>
+        </div>
+        <span class="cb-back-id">SISTEMA VIRTUALID v9.0</span>
+      </div>
+    </div>
+  </div>
+  <div class="checkin-cta" [class.visible]="pageReady"> 
+    <button class="checkin-btn" >
+       <span class="cb-glow"></span> 
+       <span class="cb-ripple"></span> 
+       <span class="cb-ripple delay"></span>
+        <span class="cb-inner">
+           <div class="cb-icon-wrap"> 
+            <ion-icon name="scan-outline" class="cb-icon"></ion-icon>
+           </div> <div class="cb-text">
+             <span class="cb-title" (click)="GoCheckin()">Hacer Check-in</span>
+             
+             <span class="cb-sub">Autenticación biométrica</span>
+             </div> <ion-icon name="finger-print-outline" class="cb-bio-icon"></ion-icon> 
+            </span> </button>
+             <p class="checkin-note" >
+               <ion-icon name="warning-outline"></ion-icon> Esta credencial está activa </p> 
+              </div> <!-- ── Datos de la institución ────────────────── -->
+              <div class="institution-section" [class.visible]="pageReady">
+  <div class="section-header">
+    <span class="section-title">Datos de la Institución</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="inst-card">
+    <div class="inst-card-glow" [style.background]="'radial-gradient(circle, ' + card?.accentColor + '1A, transparent 70%)'"></div>
+    <div class="inst-card-border"></div>
+
+    <div class="inst-hero">
+      <div class="inst-emblem" [style.--accent]="card?.accentColor">
+        <ion-icon name="business-outline"></ion-icon>
+      </div>
+      <div class="inst-name-block">
+        <span class="inst-name">{{ card?.institution || 'Nombre Institución' }}</span>
+        <span class="inst-type">Entidad Educativa Verificada</span>
+      </div>
+      <div class="inst-verified">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+      </div>
+    </div>
+
+    <div class="inst-divider"></div>
+
+    <div class="inst-row">
+      <div class="inst-row-icon" [style.--ri-color]="'#4dabf7'">
+        <ion-icon name="location-outline"></ion-icon>
+      </div>
+      <div class="inst-row-body">
+        <span class="ir-label">Campus</span>
+        <span class="ir-value">Unidad Cuitláhuac</span>
+      </div>
+    </div>
+
+    <div class="inst-row">
+      <div class="inst-row-icon" [style.--ri-color]="'#ff922b'">
+        <ion-icon name="layers-outline"></ion-icon>
+      </div>
+      <div class="inst-row-body">
+        <span class="ir-label">Departamento</span>
+        <span class="ir-value">Ingeniería en Software</span>
+      </div>
+    </div>
+
+    <div class="inst-row">
+      <div class="inst-row-icon" [style.--ri-color]="'#51cf66'">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="inst-row-body">
+        <span class="ir-label">Contacto</span>
+        <span class="ir-value">soporte.id@utcv.edu.mx</span>
+      </div>
+    </div>
+
+    <div class="inst-row">
+      <div class="inst-row-icon" [style.--ri-color]="'#cc5de8'">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </div>
+      <div class="inst-row-body">
+        <span class="ir-label">Seguridad</span>
+        <span class="ir-value">Encriptación Biométrica AES-256</span>
+      </div>
+    </div>
+
+    <div class="inst-row last">
+      <div class="inst-row-icon" [style.--ri-color]="'#ff6b6b'">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+      <div class="inst-row-body">
+        <span class="ir-label">Ciclo Escolar</span>
+        <span class="ir-value">2025 - 2026</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="height: 50px;"></div>
+</ion-content>

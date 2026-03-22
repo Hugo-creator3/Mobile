@@ -1,0 +1,260 @@
+<ion-header class="settings-header">
+  <div class="header-bg"></div>
+  <div class="header-inner">
+    <button class="icon-btn">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <div class="header-center">
+      <span class="header-title">Configuración</span>
+      <span class="header-sub">Ajustes de la app</span>
+    </div>
+    <div style="width:36px"></div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="settings-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-top"></div>
+    <div class="ambient-orb orb-bottom"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Mini perfil -->
+  <div class="mini-profile" [class.visible]="pageReady">
+    <div class="mini-avatar-wrap">
+      <img src="https://i.pravatar.cc/300?img=12" alt="avatar" class="mini-avatar" />
+      <div class="mini-status-dot"></div>
+    </div>
+    <div class="mini-info">
+      <span class="mini-name">Carlos A. Méndez</span>
+      <span class="mini-id">VID-2024-0842</span>
+    </div>
+    <button class="mini-edit-btn" (click)="navigate('/profile')">
+      <ion-icon name="person-outline"></ion-icon>
+      Ver perfil
+    </button>
+  </div>
+
+  <!-- Grupos de configuración -->
+  <div class="settings-body" [class.visible]="pageReady">
+
+    <!-- ── Cuenta ──────────────────────────────────────── -->
+    <div class="settings-group" style="--g-delay:0s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#a855f7">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </div>
+        <span class="group-title">Cuenta</span>
+      </div>
+
+      <div class="settings-card">
+        <div class="card-shine"></div>
+        <div class="card-top-bar" style="--bar-color:#a855f7"></div>
+
+        <div class="settings-row" *ngFor="let row of accountRows; let last = last"
+             [class.last]="last" (click)="onRowTap(row)">
+          <div class="row-icon-wrap" [style.--r-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">{{ row.label }}</span>
+            <span class="row-desc" *ngIf="row.desc">{{ row.desc }}</span>
+          </div>
+          <div class="row-right">
+            <span class="row-value" *ngIf="row.value">{{ row.value }}</span>
+            <ion-toggle *ngIf="row.type === 'toggle'"
+              [(ngModel)]="row.toggled"
+              class="custom-toggle"
+              (ionChange)="onToggleChange(row)">
+            </ion-toggle>
+            <ion-icon *ngIf="row.type !== 'toggle'" name="chevron-forward-outline" class="row-arrow"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Seguridad ───────────────────────────────────── -->
+    <div class="settings-group" style="--g-delay:0.08s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#22d3ee">
+          <ion-icon name="shield-outline"></ion-icon>
+        </div>
+        <span class="group-title">Seguridad</span>
+      </div>
+
+      <div class="settings-card">
+        <div class="card-shine"></div>
+        <div class="card-top-bar" style="--bar-color:#22d3ee"></div>
+
+        <div class="settings-row" *ngFor="let row of securityRows; let last = last"
+             [class.last]="last" (click)="onRowTap(row)">
+          <div class="row-icon-wrap" [style.--r-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">{{ row.label }}</span>
+            <span class="row-desc" *ngIf="row.desc">{{ row.desc }}</span>
+          </div>
+          <div class="row-right">
+            <span class="row-value" *ngIf="row.value">{{ row.value }}</span>
+            <ion-toggle *ngIf="row.type === 'toggle'"
+              [(ngModel)]="row.toggled"
+              class="custom-toggle"
+              (ionChange)="onToggleChange(row)">
+            </ion-toggle>
+            <ion-icon *ngIf="row.type !== 'toggle'" name="chevron-forward-outline" class="row-arrow"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Preferencias ────────────────────────────────── -->
+    <div class="settings-group" style="--g-delay:0.16s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#e879f9">
+          <ion-icon name="color-palette-outline"></ion-icon>
+        </div>
+        <span class="group-title">Preferencias</span>
+      </div>
+
+      <div class="settings-card">
+        <div class="card-shine"></div>
+        <div class="card-top-bar" style="--bar-color:#e879f9"></div>
+
+        <div class="settings-row" *ngFor="let row of preferenceRows; let last = last"
+             [class.last]="last" (click)="onRowTap(row)">
+          <div class="row-icon-wrap" [style.--r-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">{{ row.label }}</span>
+            <span class="row-desc" *ngIf="row.desc">{{ row.desc }}</span>
+          </div>
+          <div class="row-right">
+            <span class="row-value" *ngIf="row.value">{{ row.value }}</span>
+            <ion-toggle *ngIf="row.type === 'toggle'"
+              [(ngModel)]="row.toggled"
+              class="custom-toggle"
+              (ionChange)="onToggleChange(row)">
+            </ion-toggle>
+            <ion-icon *ngIf="row.type !== 'toggle'" name="chevron-forward-outline" class="row-arrow"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Notificaciones ──────────────────────────────── -->
+    <div class="settings-group" style="--g-delay:0.24s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#fbbf24">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div>
+        <span class="group-title">Notificaciones</span>
+      </div>
+
+      <div class="settings-card">
+        <div class="card-shine"></div>
+        <div class="card-top-bar" style="--bar-color:#fbbf24"></div>
+
+        <div class="settings-row" *ngFor="let row of notificationRows; let last = last"
+             [class.last]="last" (click)="onRowTap(row)">
+          <div class="row-icon-wrap" [style.--r-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">{{ row.label }}</span>
+            <span class="row-desc" *ngIf="row.desc">{{ row.desc }}</span>
+          </div>
+          <div class="row-right">
+            <span class="row-value" *ngIf="row.value">{{ row.value }}</span>
+            <ion-toggle *ngIf="row.type === 'toggle'"
+              [(ngModel)]="row.toggled"
+              class="custom-toggle"
+              (ionChange)="onToggleChange(row)">
+            </ion-toggle>
+            <ion-icon *ngIf="row.type !== 'toggle'" name="chevron-forward-outline" class="row-arrow"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Acerca de ────────────────────────────────────── -->
+    <div class="settings-group" style="--g-delay:0.32s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#4ade80">
+          <ion-icon name="information-circle-outline"></ion-icon>
+        </div>
+        <span class="group-title">Acerca de</span>
+      </div>
+
+      <div class="settings-card">
+        <div class="card-shine"></div>
+        <div class="card-top-bar" style="--bar-color:#4ade80"></div>
+
+        <div class="settings-row" *ngFor="let row of aboutRows; let last = last"
+             [class.last]="last" (click)="onRowTap(row)">
+          <div class="row-icon-wrap" [style.--r-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">{{ row.label }}</span>
+            <span class="row-desc" *ngIf="row.desc">{{ row.desc }}</span>
+          </div>
+          <div class="row-right">
+            <span class="row-value" *ngIf="row.value">{{ row.value }}</span>
+            <ion-icon *ngIf="row.type !== 'toggle'" name="chevron-forward-outline" class="row-arrow"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Zona de peligro ─────────────────────────────── -->
+    <div class="danger-zone" style="--g-delay:0.4s">
+      <div class="group-header">
+        <div class="group-icon-wrap" style="--g-color:#f87171">
+          <ion-icon name="warning-outline"></ion-icon>
+        </div>
+        <span class="group-title danger-title">Zona de Peligro</span>
+      </div>
+
+      <div class="danger-card">
+        <div class="danger-row" (click)="onLogout()">
+          <div class="row-icon-wrap" style="--r-color:#fb923c">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label">Cerrar sesión</span>
+            <span class="row-desc">Salir de tu cuenta actual</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="row-arrow"></ion-icon>
+        </div>
+
+        <div class="danger-divider"></div>
+
+        <div class="danger-row destructive" (click)="onDeleteAccount()">
+          <div class="row-icon-wrap" style="--r-color:#f87171">
+            <ion-icon name="trash-outline"></ion-icon>
+          </div>
+          <div class="row-body">
+            <span class="row-label danger-label">Eliminar cuenta</span>
+            <span class="row-desc">Esta acción es permanente e irreversible</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="row-arrow"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Versión -->
+    <div class="app-version">
+      <div class="version-logo">VIRTUALID</div>
+      <span class="version-text">v1.0.0 · Build 2024.12</span>
+      <span class="version-copy">© 2024 VIRTUALID. Todos los derechos reservados.</span>
+    </div>
+
+  </div>
+
+  <div style="height: 48px;"></div>
+
+</ion-content>

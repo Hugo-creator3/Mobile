@@ -1,0 +1,740 @@
+
+
+@use '../../../theme/variables' as *;
+
+// ─── Base ─────────────────────────────────────────────────────────
+:host { display: block; }
+
+.card-content {
+  --background: #{$bg-deep};
+  --color: #{$white};
+  font-family: 'Exo 2', sans-serif;
+}
+
+// 1. ESQUINA SUPERIOR IZQUIERDA: FOTO
+.cf-profile-img {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.1);
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.cf-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+  margin-left: auto;  
+}
+
+.cf-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// 2. ESQUINA SUPERIOR DERECHA: INSTITUCIÓN
+.cf-top-right-org {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 150px;
+  text-transform: uppercase;
+}
+
+// 3. ESQUINA INFERIOR IZQUIERDA: NOMBRE USUARIO
+.cf-holder-bottom {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  
+  .cf-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  
+  .cf-role {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+}
+
+// 4. ESQUINA INFERIOR DERECHA: CHIP
+.cf-chip-bottom {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  
+  .chip-body {
+    width: 38px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+    border: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  
+  .chip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    span {
+      width: 12px;
+      height: 4px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 1px;
+    }
+  }
+}
+
+// Ajuste para el brillo (Shimmer) para que no tape la foto
+.cf-shimmer {
+  z-index: 1;
+}
+// ─── Header ──────────────────────────────────────────────────────
+.card-header {
+  position: relative;
+  --background: transparent;
+  --border-color: transparent;
+  z-index: 100;
+}
+
+.header-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba($bg-deep, 0.98), rgba($bg-deep, 0.82));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba($v400, 0.12);
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px 10px;
+  gap: 12px;
+}
+
+.header-center {
+  flex: 1; text-align: center;
+  .header-title {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: $white;
+  }
+  .header-sub {
+    display: block;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    color: rgba($v200, 0.45); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border: none; border-radius: 50%;
+  background: rgba($v600, 0.2);
+  border: 1px solid rgba($v400, 0.2);
+  color: $v200; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  ion-icon { font-size: 1.1rem; }
+  &:active { background: rgba($v500, 0.35); }
+}
+
+// ─── Fondo ambiental ─────────────────────────────────────────────
+.ambient-bg {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px);
+}
+
+.orb-card {
+  width: 420px; height: 420px;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  animation: orbCard 8s ease-in-out infinite;
+}
+
+.orb-bottom {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba($pink, 0.08), transparent 70%);
+  bottom: -60px; right: -40px;
+  animation: floatB 12s ease-in-out infinite;
+}
+
+@keyframes orbCard  { 0%,100%{transform:translateX(-50%) scale(1)} 50%{transform:translateX(-50%) scale(1.1)} }
+@keyframes floatB   { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-25px)} }
+
+.grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba($v400, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($v400, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+// ─── Card stage (3D flip) ─────────────────────────────────────────
+.card-stage {
+  position: relative; z-index: 10;
+  padding: 28px 24px 10px;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateY(-24px) scale(0.94);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.visible { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card-3d-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 210px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  &.flipped { transform: rotateY(180deg); }
+}
+
+.card-face {
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba($v500, 0.15);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+// ── Fondo compartido de la cara ───────────────────────────────────
+.cf-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent, #{$v600}) 55%, #{$v900} 45%) 0%,
+    #{$v900} 55%,
+    #{$bg-dark} 100%
+  );
+}
+
+.cf-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.cf-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.06) 50%, transparent 62%);
+  background-size: 200% 100%;
+  animation: shimSlide 5s linear infinite;
+}
+
+@keyframes shimSlide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.cf-circuit { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+// Barra de acento superior
+.cf-accent-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt, var(--accent)), transparent);
+  border-radius: 20px 20px 0 0;
+}
+
+// ── Cara frontal ─────────────────────────────────────────────────
+.cf-top-row {
+  position: absolute; top: 16px; left: 18px; right: 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.cf-logo-chip {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem; font-weight: 900;
+  .cl-v { color: $white; }
+  .cl-id { color: rgba(255,255,255,0.55); }
+}
+
+.cf-nfc {
+  ion-icon {
+    font-size: 1.1rem; color: rgba($white, 0.35);
+    transform: rotate(90deg);
+  }
+}
+
+// Chip dorado
+.cf-chip {
+  position: absolute; top: 44px; left: 18px;
+}
+
+.chip-body {
+  width: 38px; height: 28px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,215,0,0.15));
+  border: 1px solid rgba(255,215,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.chip-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 4px;
+  span {
+    height: 6px; background: rgba(255,215,0,0.45);
+    border-radius: 1px;
+    &:nth-child(1) { grid-column: 1/-1; height: 4px; }
+    &:nth-child(6) { grid-column: 1/-1; height: 4px; }
+  }
+}
+
+// Info del titular
+.cf-holder {
+  position: absolute; bottom: 32px; left: 18px; right: 18px;
+}
+
+.cf-org {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba($white, 0.45); margin-bottom: 4px;
+}
+
+.cf-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.92rem; font-weight: 700; letter-spacing: 0.04em;
+  color: $white; text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.cf-role {
+  font-size: 0.62rem; letter-spacing: 0.08em;
+  color: rgba($white, 0.5); margin-top: 2px;
+}
+
+// Footer de la cara frontal
+.cf-footer {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 7px 18px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; gap: 14px;
+}
+
+.cf-id-block, .cf-validity-block {
+  display: flex; flex-direction: column; gap: 1px;
+}
+
+.cfi-label, .cfv-label {
+  font-size: 0.48rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba($white, 0.3);
+}
+
+.cfi-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem; letter-spacing: 0.12em; color: rgba($white, 0.65);
+}
+
+.cfv-value {
+  font-size: 0.68rem; font-weight: 600; color: rgba($white, 0.7);
+}
+
+.cf-status {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba($red, 0.8); font-weight: 600;
+
+  &.active { color: $green; }
+  .cfs-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: $red;
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+  &.active .cfs-dot { background: $green; box-shadow: 0 0 6px $green; }
+}
+
+@keyframes dotPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.65)} }
+
+// Hint voltear
+.flip-hint {
+  position: absolute; bottom: 38px; right: 14px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba($white, 0.25);
+  ion-icon { font-size: 0.7rem; }
+  animation: hintFade 3s ease-in-out infinite;
+}
+
+.back-hint { bottom: 12px; }
+
+@keyframes hintFade { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+// ── Cara trasera ──────────────────────────────────────────────────
+.cb-stripe {
+  position: absolute; top: 32px; left: 0; right: 0; height: 40px;
+  background: rgba(0,0,0,0.55);
+}
+
+.cb-qr-section {
+  position: absolute;
+  top: 88px; left: 18px; right: 18px;
+  display: flex; align-items: center; gap: 18px;
+}
+
+.cb-qr-wrap {
+  position: relative; flex-shrink: 0;
+  width: 80px; height: 80px;
+  background: rgba($white, 0.04);
+  border: 1px solid rgba($white, 0.12);
+  border-radius: 8px;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.qr-scan-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba($cyan, 0.8), transparent);
+  animation: qrScan 2.5s ease-in-out infinite;
+  top: 0;
+}
+
+@keyframes qrScan {
+  0%   { top: 0; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.qr-svg { width: 100%; height: 100%; display: block; }
+
+.cb-totp-wrap {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+.totp-label {
+  font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba($white, 0.35);
+}
+
+.totp-code {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem; font-weight: 900; letter-spacing: 0.18em;
+  color: $white;
+  text-shadow: 0 0 16px rgba($cyan, 0.5);
+  animation: codeGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes codeGlow {
+  from { text-shadow: 0 0 10px rgba($cyan, 0.3); }
+  to   { text-shadow: 0 0 22px rgba($cyan, 0.7); }
+}
+
+.totp-timer-bar {
+  height: 3px; border-radius: 2px;
+  background: rgba($white, 0.1); overflow: hidden;
+}
+
+.totp-timer-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, $cyan, $v300);
+  transition: width 1s linear;
+}
+
+.totp-expires {
+  font-size: 0.58rem; letter-spacing: 0.1em;
+  color: rgba($white, 0.35);
+}
+
+.cb-back-id {
+  position: absolute; bottom: 14px; left: 18px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.58rem; letter-spacing: 0.2em;
+  color: rgba($white, 0.2);
+}
+
+// ─── Check-in CTA ─────────────────────────────────────────────────
+.checkin-cta {
+  position: relative; z-index: 10;
+  padding: 20px 24px 8px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s ease 0.25s, transform 0.65s ease 0.25s;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+}
+
+.checkin-btn {
+  position: relative; width: 100%;
+  height: 68px; border: none; border-radius: 20px;
+  cursor: pointer; overflow: hidden;
+  outline: none; -webkit-tap-highlight-color: transparent;
+
+  &.disabled {
+    opacity: 0.45; cursor: not-allowed;
+    .cb-ripple { display: none; }
+    .cb-glow   { display: none; }
+  }
+
+  &:not(.disabled):active {
+    transform: scale(0.98);
+    .cb-glow { opacity: 1.5; }
+  }
+}
+
+.cb-glow {
+  position: absolute; inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, $v400, $cyan);
+  opacity: 0; filter: blur(14px); z-index: -1;
+  animation: ctaGlowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaGlowPulse { 0%,100%{opacity:0.25} 50%{opacity:0.55} }
+
+.cb-ripple {
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba($v300, 0.4);
+  animation: ctaRipple 2.5s ease-out infinite;
+
+  &.delay { animation-delay: 1.25s; }
+}
+
+@keyframes ctaRipple {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.06); opacity: 0; }
+}
+
+.cb-inner {
+  position: relative; z-index: 2;
+  width: 100%; height: 100%;
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 20px;
+  background: linear-gradient(135deg, rgba($v600, 0.9), rgba($v700, 0.9));
+  border: 1px solid rgba($v300, 0.2);
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.cb-icon-wrap {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.cb-icon {
+  font-size: 1.3rem; color: $white;
+  filter: drop-shadow(0 0 6px rgba($cyan, 0.6));
+  animation: scanPulse 2s ease-in-out infinite;
+}
+
+@keyframes scanPulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(0.88); opacity: 0.7; }
+}
+
+.cb-text {
+  flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: left;
+}
+
+.cb-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em;
+  color: $white;
+}
+
+.cb-sub {
+  font-size: 0.62rem; letter-spacing: 0.1em;
+  color: rgba($white, 0.5);
+}
+
+.cb-bio-icon {
+  font-size: 1.6rem; color: rgba($v200, 0.6);
+  filter: drop-shadow(0 0 8px rgba($v300, 0.4));
+  animation: bioFloat 3s ease-in-out infinite;
+}
+
+@keyframes bioFloat {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+.checkin-note {
+  margin: 10px 0 0;
+  display: flex; align-items: center; gap: 6px; justify-content: center;
+  font-size: 0.68rem; letter-spacing: 0.08em;
+  color: rgba($red, 0.7);
+  ion-icon { font-size: 0.85rem; }
+}
+
+// ─── Institution section ──────────────────────────────────────────
+.institution-section {
+  position: relative; z-index: 10;
+  padding: 12px 24px 0;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s ease 0.4s, transform 0.65s ease 0.4s;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba($v200, 0.5); white-space: nowrap;
+}
+
+.section-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba($v400, 0.3), transparent);
+}
+
+// Tarjeta de institución
+.inst-card {
+  position: relative;
+  border-radius: 20px;
+  background: rgba($v800, 0.32);
+  border: 1px solid rgba($v400, 0.12);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+.inst-card-glow {
+  position: absolute; top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 200px;
+  pointer-events: none;
+}
+
+.inst-card-border {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba($v300, 0.3), transparent);
+}
+
+// Hero de institución
+.inst-hero {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 18px 14px;
+}
+
+.inst-emblem {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  ion-icon {
+    font-size: 1.3rem;
+    color: var(--accent, #{$v300});
+    filter: drop-shadow(0 0 6px var(--accent, #{$v300}));
+  }
+}
+
+.inst-name-block {
+  flex: 1; min-width: 0;
+  .inst-name {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;
+    color: $white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .inst-type {
+    display: block;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba($v200, 0.4); margin-top: 3px;
+  }
+}
+
+.inst-verified {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba($green, 0.12);
+  border: 1px solid rgba($green, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  ion-icon { font-size: 0.95rem; color: $green; filter: drop-shadow(0 0 4px $green); }
+}
+
+.inst-divider {
+  height: 1px; margin: 0 18px;
+  background: rgba($v400, 0.1);
+}
+
+// Filas de datos de institución
+.inst-row {
+  display: flex; align-items: center; gap: 13px;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba($v400, 0.07);
+
+  &.last { border-bottom: none; }
+}
+
+.inst-row-icon {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  ion-icon {
+    font-size: 0.95rem;
+    color: var(--ri-color, #{$v300});
+    filter: drop-shadow(0 0 4px var(--ri-color, #{$v300}));
+  }
+}
+
+.inst-row-body {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+
+.ir-label {
+  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba($v200, 0.35);
+}
+
+.ir-value {
+  font-size: 0.82rem; font-weight: 500;
+  color: rgba($white, 0.82);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}

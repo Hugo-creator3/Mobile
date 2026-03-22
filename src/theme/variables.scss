@@ -1,0 +1,45 @@
+// ─── Variables SASS ─────────────────────────
+
+$bg-deep: #0f0120;
+$bg-dark: #130222;
+
+$v900: #1a0533;
+$v800: #2d0a57;
+$v700: #4a1080;
+$v600: #6b21a8;
+$v500: #8b31cc;
+$v400: #a855f7;
+$v300: #c084fc;
+$v200: #ddb6fe;
+$v100: #f3e8ff;
+
+$cyan:  #22d3ee;
+$pink:  #e879f9;
+$gold:  #fbbf24;
+$white: #ffffff;
+
+$green:    #4ade80;
+$red:      #f87171;
+
+$orange:   #fb923c;
+// ─── Variables CSS ─────────────────────────
+
+:root {
+
+  --background: #{$bg-deep};
+
+  --v-violet:        #7c3aed;
+  --v-violet-light:  #a78bfa;
+  --v-violet-dark:   #4c1d95;
+  --v-violet-deep:   #2e1065;
+  --v-accent:        #c084fc;
+  --v-cyan:          #22d3ee;
+
+  --v-white:         #f5f3ff;
+  --v-card-bg:       rgba(124, 58, 237, 0.12);
+  --v-border:        rgba(167, 139, 250, 0.25);
+  --v-glow:          rgba(124, 58, 237, 0.6);
+
+  --primary-violet:  #580663;
+  --bg-white:        #ffffff;
+}

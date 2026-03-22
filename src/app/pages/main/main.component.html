@@ -1,0 +1,147 @@
+<ion-header class="main-header">
+  <div class="header-bg"></div>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="brand-mark">
+        <span class="brand-v">V</span><span class="brand-id">ID</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <span class="header-title">Mi Wallet</span>
+      <span class="header-sub">{{ cards.length }} credencial{{ cards.length !== 1 ? 'es' : '' }}</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn notify-btn" (click)="onNotifications()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notify-badge" *ngIf="unreadNotifications > 0">{{ unreadNotifications }}</span>
+      </button>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="false" class="main-content" [scrollEvents]="true" (ionScroll)="onScroll($event)">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-top"></div>
+    <div class="ambient-orb orb-bottom"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Hero / resumen superior -->
+  <div class="hero-section" [class.scrolled]="isScrolled">
+    <div class="hero-greeting">
+      <p class="greeting-text">Hola, <span class="greeting-name">{{ userName }}</span></p>
+      <p class="greeting-date">{{ currentDate }}</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-chip">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>{{ activeCards }} Activas</span>
+      </div>
+      <div class="stat-chip accent">
+        <ion-icon name="wifi-outline"></ion-icon>
+        <span>En línea</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de tarjetas -->
+  <div class="cards-section">
+    <div class="section-header">
+      <h2 class="section-title">Tus Credenciales</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="cards.length === 0" [class.visible]="pageReady">
+      <div class="empty-icon-wrap">
+        <div class="empty-ring"></div>
+        <ion-icon name="card-outline" class="empty-icon"></ion-icon>
+      </div>
+      <p class="empty-title">Sin credenciales</p>
+      <p class="empty-desc">Agrega tu primera tarjeta institucional para comenzar</p>
+    </div>
+
+    <!-- Grid de tarjetas -->
+    <div class="cards-list" *ngIf="cards.length > 0">
+      <div
+        class="card-item"
+        *ngFor="let card of cards; let i = index"
+        [class.visible]="pageReady"
+        [style.--card-index]="i"
+        [style.--accent]="card.accentColor"
+        [style.--accent-alt]="card.accentAlt"
+        (click)="onCardSelect(card)"
+      >
+        <!-- Fondo de la tarjeta -->
+        <div class="card-bg">
+          <div class="card-noise"></div>
+          <div class="card-shimmer"></div>
+          <div class="card-circuit">
+            <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+              <path d="M0 60 Q75 20 150 60 T300 60" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+              <path d="M0 80 Q75 40 150 80 T300 80" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none"/>
+              <circle cx="240" cy="30" r="40" fill="rgba(255,255,255,0.03)"/>
+              <circle cx="260" cy="50" r="28" fill="rgba(255,255,255,0.03)"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Chip NFC -->
+        <div class="card-chip">
+          <div class="chip-body">
+            <div class="chip-lines">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <ion-icon name="wifi-outline" class="nfc-icon"></ion-icon>
+        </div>
+
+        <!-- Info de la tarjeta -->
+        <div class="card-info">
+          <div class="card-org-row">
+            <span class="card-org">{{ card.institution }}</span>
+            <div class="card-status-dot" [class.active]="card.isActive"></div>
+          </div>
+          <div class="card-name">{{ card.holderName }}</div>
+          <div class="card-role">{{ card.role }}</div>
+        </div>
+
+        <!-- Footer de tarjeta -->
+        <div class="card-footer">
+          <div class="card-id-code">
+            <span class="id-label">ID</span>
+            <span class="id-value">{{ card.idCode }}</span>
+          </div>
+          <div class="card-validity">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>{{ card.validUntil }}</span>
+          </div>
+        </div>
+
+        <!-- Indicador de selección -->
+        <div class="card-arrow">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+
+        <!-- Borde top con color de acento -->
+        <div class="card-accent-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Espacio para el FAB -->
+  <div style="height: 100px;"></div>
+
+</ion-content>
+
+<!-- FAB para agregar tarjeta -->
+<div class="fab-container" [class.visible]="pageReady">
+  <div class="fab-ripple"></div>
+  <div class="fab-ripple delay"></div>
+  <button class="fab-btn" (click)="onAddCard()">
+    <ion-icon name="add-outline" class="fab-icon"></ion-icon>
+  </button>
+  <span class="fab-label">Agregar</span>
+</div>

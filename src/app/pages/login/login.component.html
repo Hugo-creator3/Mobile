@@ -1,0 +1,169 @@
+<ion-content [fullscreen]="true" class="login-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+  </div>
+
+  <!-- Partículas -->
+  <div class="particles">
+    <span class="p p1"></span><span class="p p2"></span>
+    <span class="p p3"></span><span class="p p4"></span>
+    <span class="p p5"></span><span class="p p6"></span>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="login-container">
+
+    <!-- Logo / marca -->
+    <div class="header-section">
+      <div class="logo-rings">
+        <div class="lr lr-a"></div>
+        <div class="lr lr-b"></div>
+        <div class="logo-core">
+          <svg viewBox="0 0 60 60" fill="none" class="logo-icon">
+            <rect x="8"  y="6"  width="28" height="38" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="12" y="12" width="20" height="13" rx="2" fill="currentColor" opacity="0.35"/>
+            <circle cx="22" cy="33" r="4" fill="currentColor"/>
+            <line x1="12" y1="41" x2="36" y2="41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M38 18 L52 18 L52 46 L38 46" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="45" cy="32" r="3" fill="currentColor"/>
+            <line x1="40" y1="25" x2="50" y2="25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="40" y1="39" x2="50" y2="39" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="brand-name">
+        <span class="bn-v">VIRTUAL</span><span class="bn-id">ID</span>
+      </div>
+      <div class="brand-tagline">
+        <span class="bt-dot"></span>
+        Identificación Digital Segura
+        <span class="bt-dot"></span>
+      </div>
+    </div>
+
+    <!-- Tarjeta de formulario -->
+    <div class="form-card">
+      <div class="fc-top-bar"></div>
+      <div class="fc-glow"></div>
+
+      <div class="form-header">
+        <h1 class="welcome-text">¡Hola!</h1>
+        <p class="welcome-sub">Inicia sesión para continuar</p>
+      </div>
+
+      <!-- Campos -->
+      <div class="input-group">
+
+        <div class="field-wrap">
+          <div class="field-icon" style="--f-color:#22d3ee">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <ion-item lines="none" class="custom-input">
+            <ion-input [(ngModel)]="email" type="email" placeholder="Email"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="field-wrap">
+          <div class="field-icon" style="--f-color:#a855f7">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </div>
+          <ion-item lines="none" class="custom-input">
+            <ion-input [(ngModel)]="password" type="password" placeholder="Password"></ion-input>
+          </ion-item>
+          <button  (click)="togglePassword()">
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Términos -->
+      <div class="terms-container">
+        <ion-checkbox mode="md" labelPlacement="end" class="custom-checkbox">
+          <span class="terms-label">
+            Estoy de acuerdo con los
+            <span class="terms-link">términos y condiciones</span>
+          </span>
+        </ion-checkbox>
+      </div>
+
+
+         <div *ngIf="errorMessage" class="error-container">
+  <p class="error-text">{{ errorMessage }}</p>
+</div>
+      <!-- Botón login -->
+
+      <button class="login-btn" (click)="login()">
+        <span class="lb-glow"></span>
+        <span class="lb-ripple"></span>
+        <span class="lb-ripple delay"></span>
+        <span class="lb-inner">
+          Iniciar Sesión
+        </span>
+      </button>
+
+      
+   
+
+      <!-- Registro -->
+      <div class="register-link-container">
+        <p class="register-text">
+          ¿No tienes cuenta?
+          <span class="register-link" (click)="goToRegister()">Regístrate</span>
+        </p>
+      </div>
+
+      <!-- Divisor -->
+      <div class="divider">
+        <div class="div-line"></div>
+        <span class="div-label">o</span>
+        <div class="div-line"></div>
+      </div>
+
+      <!-- Social login -->
+      <div class="social-login">
+
+        <!-- Google -->
+        <button class="social-btn red">
+          <span class="social-glow"></span>
+          <svg viewBox="0 0 24 24" class="social-icon">
+            <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z"/>
+            <path fill="#34A853" d="M16.04 18.013c-1.09.703-2.474 1.078-4.04 1.078a7.077 7.077 0 0 1-6.723-4.823l-4.04 3.067A11.965 11.965 0 0 0 12 24c2.933 0 5.735-1.043 7.834-3l-3.793-2.987Z"/>
+            <path fill="#4A90D9" d="M19.834 21c2.195-2.048 3.62-5.096 3.62-9 0-.71-.109-1.473-.272-2.182H12v4.637h6.436c-.317 1.559-1.17 2.766-2.395 3.558L19.834 21Z"/>
+            <path fill="#FBBC05" d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z"/>
+          </svg>
+        </button>
+
+        <!-- Facebook -->
+        <button class="social-btn blue">
+          <span class="social-glow"></span>
+          <svg viewBox="0 0 24 24" class="social-icon">
+            <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073Z"/>
+          </svg>
+        </button>
+
+        <!-- X / Twitter -->
+        <button class="social-btn dark">
+          <span class="social-glow"></span>
+          <svg viewBox="0 0 24 24" class="social-icon">
+            <path fill="#ffffff" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </button>
+
+      </div>
+
+      <p class="footer-text">
+        Inicia sesión con tu cuenta de <span class="footer-bold">redes sociales</span>
+      </p>
+
+    </div>
+
+  </div>
+
+</ion-content>

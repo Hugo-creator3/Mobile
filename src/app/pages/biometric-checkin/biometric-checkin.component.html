@@ -1,0 +1,160 @@
+<ion-content [fullscreen]="true" class="bio-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+  </div>
+
+  <!-- Partículas -->
+  <div class="particles">
+    <span class="particle" *ngFor="let p of particles" [ngStyle]="p.style"></span>
+  </div>
+
+  <!-- Botón volver -->
+  <button class="back-btn" [class.visible]="pageReady" (click)="onCancel()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+
+  <!-- Contenido central -->
+  <div class="bio-container" [class.visible]="pageReady">
+
+    <!-- Cabecera -->
+    <div class="bio-header">
+      <div class="brand-mark">
+        <span class="bm-v">V</span><span class="bm-id">ID</span>
+      </div>
+      <div class="header-divider"></div>
+      <span class="header-label">Check-in Seguro</span>
+    </div>
+
+    <!-- Tarjeta info check-in -->
+    <div class="checkin-info-card">
+      <div class="cic-border"></div>
+      <div class="cic-glow"></div>
+      <div class="cic-row">
+        <div class="cic-icon-wrap">
+          <ion-icon name="location-outline"></ion-icon>
+        </div>
+        <div class="cic-body">
+          <span class="cic-label">Punto de acceso</span>
+          <span class="cic-value">{{ checkpointName }}</span>
+        </div>
+      </div>
+      <div class="cic-sep"></div>
+      <div class="cic-row">
+        <div class="cic-icon-wrap">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <div class="cic-body">
+          <span class="cic-label">Credencial</span>
+          <span class="cic-value">{{ cardName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zona de huella digital -->
+    <div class="fingerprint-zone">
+
+      <!-- Anillos de radar -->
+      <div class="radar-ring r1"></div>
+      <div class="radar-ring r2"></div>
+      <div class="radar-ring r3"></div>
+      <div class="radar-ring r4"></div>
+
+      <!-- Arco giratorio exterior -->
+      <div class="arc-outer">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="92"
+            fill="none" stroke="url(#arcGrad)" stroke-width="1.5"
+            stroke-dasharray="180 400" stroke-linecap="round"
+            class="arc-path"/>
+          <defs>
+            <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#a855f7" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#a855f7" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Arco giratorio interior (reverse) -->
+      <div class="arc-inner">
+        <svg viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="72"
+            fill="none" stroke="url(#arcGrad2)" stroke-width="1"
+            stroke-dasharray="100 360" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="arcGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#e879f9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Botón de huella -->
+      <button class="fp-btn" (click)="onFingerprintTap()" [class.scanning]="isScanning">
+        <div class="fp-btn-bg"></div>
+        <div class="fp-btn-glow"></div>
+
+        <!-- Ícono SVG de huella detallado -->
+        <svg class="fp-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Líneas de la huella -->
+          <path d="M40 72 C22 72 10 60 10 44 C10 32 16 24 26 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l1"/>
+          <path d="M40 66 C25 66 16 56 16 44 C16 36 20 30 28 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l2"/>
+          <path d="M40 60 C28 60 22 52 22 44 C22 38 26 34 32 31" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l3"/>
+          <path d="M40 54 C32 54 28 49 28 44 C28 40 31 37 36 35" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l4"/>
+          <circle cx="40" cy="40" r="4" fill="currentColor" class="fp-center" opacity="0.8"/>
+          <path d="M40 66 C55 66 64 56 64 44 C64 36 60 30 52 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l5"/>
+          <path d="M40 60 C52 60 58 52 58 44 C58 38 54 34 48 31" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l6"/>
+          <path d="M40 54 C48 54 52 49 52 44 C52 40 49 37 44 35" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l7"/>
+          <path d="M40 72 C58 72 70 60 70 44 C70 32 64 24 54 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l8"/>
+          <!-- Parte superior -->
+          <path d="M26 20 C30 14 34 11 40 10 C46 11 50 14 54 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l9"/>
+          <path d="M28 26 C31 20 35 17 40 16 C45 17 49 20 52 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l10"/>
+          <path d="M32 31 C34 26 37 23 40 22 C43 23 46 26 48 31" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l11"/>
+          <path d="M36 35 C37 31 38 29 40 28 C42 29 43 31 44 35" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="fp-line l12"/>
+        </svg>
+
+        <!-- Efecto de escaneo -->
+        <div class="fp-scan-overlay" *ngIf="isScanning">
+          <div class="fp-scan-beam"></div>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- Texto instructivo -->
+    <div class="bio-instruction">
+      <p class="inst-title" [ngSwitch]="bioState">
+        <span *ngSwitchCase="'idle'">Toca para escanear</span>
+        <span *ngSwitchCase="'scanning'">Leyendo huella...</span>
+        <span *ngSwitchCase="'success'">¡Acceso concedido!</span>
+        <span *ngSwitchCase="'error'">No reconocida, intenta de nuevo</span>
+      </p>
+      <p class="inst-sub">Coloca tu dedo índice sobre el sensor</p>
+
+      <!-- Indicadores de punto -->
+      <div class="state-dots">
+        <span class="sd" [class.active]="bioState === 'idle'"></span>
+        <span class="sd" [class.active]="bioState === 'scanning'"></span>
+        <span class="sd success" [class.active]="bioState === 'success'"></span>
+        <span class="sd error"   [class.active]="bioState === 'error'"></span>
+      </div>
+    </div>
+
+    <!-- PIN alternativo -->
+    <button class="alt-method-btn" (click)="onUsePIN()">
+      <ion-icon name="keypad-outline"></ion-icon>
+      Usar PIN en su lugar
+    </button>
+
+  </div>
+
+</ion-content>

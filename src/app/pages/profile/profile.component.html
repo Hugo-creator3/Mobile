@@ -1,0 +1,155 @@
+<ion-header class="profile-header">
+  <div class="header-bg"></div>
+  <div class="header-inner">
+    <button class="icon-btn" (click)="onBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <div class="header-center">
+      <span class="header-title">Perfil</span>
+      <span class="header-sub">Datos personales</span>
+    </div>
+    <button class="icon-btn" (click)="onEdit()">
+      <ion-icon name="create-outline"></ion-icon>
+    </button>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="profile-content">
+
+  <!-- Fondo ambiental -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-top"></div>
+    <div class="ambient-orb orb-bottom"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Hero del perfil -->
+  <div class="profile-hero" [class.visible]="pageReady">
+    <div class="hero-arc"></div>
+
+    <!-- Avatar -->
+    <div class="avatar-wrapper">
+      <div class="avatar-ring ring-a"></div>
+      <div class="avatar-ring ring-b"></div>
+      <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
+
+<div class="avatar-frame" (click)="fileInput.click()">
+        <img
+          [src]="user.photoUrl"
+          [alt]="user.fullName"
+          class="avatar-img"
+          (error)="onAvatarError($event)"
+        />
+        <div class="avatar-overlay"></div>
+      </div>
+      <div class="avatar-status" [class.active]="user.isActive">
+        <span class="status-dot-inner"></span>
+      </div>
+    </div>
+
+    <!-- Nombre y rol -->
+    <div class="hero-name">{{ user.fullName }}</div>
+
+    <!-- Chips de estado -->
+    <div class="hero-chips">
+      <div class="status-chip" [class.active]="user.isActive" [class.inactive]="!user.isActive">
+        <span class="chip-dot"></span>
+        {{ user.isActive ? 'Cuenta Activa' : 'Cuenta Inactiva' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjetas de datos -->
+  <div class="data-section" [class.visible]="pageReady">
+
+    <!-- Bloque: Información personal -->
+    <div class="data-block" style="--block-delay: 0s">
+      <div class="block-label">
+        <span class="block-label-line"></span>
+        Información Personal
+        <span class="block-label-line"></span>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-glow"></div>
+        <div class="data-card-border"></div>
+
+        <div class="data-row" *ngFor="let row of personalRows; let last = last" [class.last]="last">
+          <div class="data-row-icon" [style.--row-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="data-row-body">
+            <span class="data-label">{{ row.label }}</span>
+            <span class="data-value">{{ row.value }}</span>
+          </div>
+          <div class="data-row-accent" [style.background]="row.color"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloque: Contacto -->
+    <div class="data-block" style="--block-delay: 0.1s">
+      <div class="block-label">
+        <span class="block-label-line"></span>
+        Contacto
+        <span class="block-label-line"></span>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-glow"></div>
+        <div class="data-card-border"></div>
+
+        <div class="data-row" *ngFor="let row of contactRows; let last = last" [class.last]="last">
+          <div class="data-row-icon" [style.--row-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="data-row-body">
+            <span class="data-label">{{ row.label }}</span>
+            <span class="data-value">{{ row.value }}</span>
+          </div>
+          <div class="data-row-accent" [style.background]="row.color"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloque: Cuenta -->
+    <div class="data-block" style="--block-delay: 0.2s">
+      <div class="block-label">
+        <span class="block-label-line"></span>
+        Cuenta
+        <span class="block-label-line"></span>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-glow"></div>
+        <div class="data-card-border"></div>
+
+        <div class="data-row" *ngFor="let row of accountRows; let last = last" [class.last]="last">
+          <div class="data-row-icon" [style.--row-color]="row.color">
+            <ion-icon [name]="row.icon"></ion-icon>
+          </div>
+          <div class="data-row-body">
+            <span class="data-label">{{ row.label }}</span>
+            <span class="data-value" [class.value-active]="row.isStatus && user.isActive"
+                                     [class.value-inactive]="row.isStatus && !user.isActive">
+              {{ row.value }}
+            </span>
+          </div>
+          <div class="data-row-accent" [style.background]="row.color"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón cerrar sesión -->
+    <div class="logout-wrap" style="--block-delay: 0.3s">
+      <button class="logout-btn" (click)="onLogout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar Sesión
+      </button>
+    </div>
+
+  </div>
+
+  <div style="height: 48px;"></div>
+
+</ion-content>

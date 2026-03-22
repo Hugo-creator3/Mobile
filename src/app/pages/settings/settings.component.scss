@@ -1,0 +1,473 @@
+
+@use '../../../theme/variables' as *;
+
+// ─── Base ─────────────────────────────────────────────────────────
+:host { display: block; }
+
+.settings-content {
+  --background: #{$bg-deep};
+  --color: #{$white};
+  font-family: 'Exo 2', sans-serif;
+}
+
+// ─── Header ──────────────────────────────────────────────────────
+.settings-header {
+  position: relative;
+  --background: transparent;
+  --border-color: transparent;
+  z-index: 100;
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba($bg-deep, 0.98), rgba($bg-deep, 0.82));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba($v400, 0.12);
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px 10px;
+  gap: 12px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  .header-title {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $white;
+  }
+  .header-sub {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: rgba($v200, 0.4);
+    margin-top: 2px;
+  }
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border: none; border-radius: 50%;
+  background: rgba($v600, 0.2);
+  border: 1px solid rgba($v400, 0.2);
+  color: $v200;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  ion-icon { font-size: 1.1rem; }
+  &:active { background: rgba($v500, 0.35); }
+}
+
+// ─── Fondo ambiental ─────────────────────────────────────────────
+.ambient-bg {
+  position: fixed;
+  inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+.orb-top {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba($v600, 0.22), transparent 70%);
+  top: -100px; right: -80px;
+  animation: floatA 11s ease-in-out infinite;
+}
+
+.orb-bottom {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba($pink, 0.1), transparent 70%);
+  bottom: -60px; left: -60px;
+  animation: floatB 13s ease-in-out infinite;
+}
+
+@keyframes floatA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,35px)} }
+@keyframes floatB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-28px)} }
+
+.grid-overlay {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba($v400, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($v400, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+// ─── Mini perfil ─────────────────────────────────────────────────
+.mini-profile {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 18px 18px 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba($v800, 0.4);
+  border: 1px solid rgba($v400, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($v300, 0.4), transparent);
+  }
+}
+
+.mini-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mini-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba($v300, 0.3);
+  box-shadow: 0 0 16px rgba($v500, 0.35);
+}
+
+.mini-status-dot {
+  position: absolute;
+  bottom: 1px; right: 1px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: $green;
+  border: 2px solid $bg-deep;
+  box-shadow: 0 0 6px $green;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.7); }
+}
+
+.mini-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mini-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: $white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-id {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: rgba($v200, 0.45);
+}
+
+.mini-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba($v400, 0.25);
+  background: rgba($v600, 0.2);
+  color: $v200;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+  ion-icon { font-size: 0.85rem; }
+
+  &:active {
+    background: rgba($v500, 0.3);
+    box-shadow: 0 0 12px rgba($v400, 0.2);
+  }
+}
+
+// ─── Settings body ────────────────────────────────────────────────
+.settings-body {
+  position: relative;
+  z-index: 10;
+  padding: 8px 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Group ────────────────────────────────────────────────────────
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: groupIn 0.5s ease both;
+  animation-delay: var(--g-delay, 0s);
+}
+
+@keyframes groupIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 2px;
+}
+
+.group-icon-wrap {
+  width: 28px; height: 28px;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  ion-icon {
+    font-size: 0.95rem;
+    color: var(--g-color, #{$v300});
+    filter: drop-shadow(0 0 5px var(--g-color, #{$v300}));
+  }
+}
+
+.group-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($v200, 0.55);
+}
+
+// ─── Settings card ────────────────────────────────────────────────
+.settings-card {
+  position: relative;
+  border-radius: 18px;
+  background: rgba($v800, 0.32);
+  border: 1px solid rgba($v400, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+.card-shine {
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba($v300, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.card-top-bar {
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--bar-color), rgba(255,255,255,0.1), transparent);
+}
+
+// ─── Settings row ─────────────────────────────────────────────────
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba($v400, 0.07);
+  cursor: pointer;
+  transition: background 0.18s;
+  position: relative;
+  overflow: hidden;
+
+  &.last { border-bottom: none; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba($v500, 0.0);
+    transition: background 0.18s;
+  }
+
+  &:active::after { background: rgba($v500, 0.12); }
+}
+
+.row-icon-wrap {
+  width: 36px; height: 36px;
+  border-radius: 11px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  ion-icon {
+    font-size: 1rem;
+    color: var(--r-color, #{$v300});
+    filter: drop-shadow(0 0 5px var(--r-color, #{$v300}));
+  }
+}
+
+.row-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba($white, 0.88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-desc {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: rgba($v200, 0.38);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.row-value {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: rgba($v200, 0.5);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.row-arrow {
+  font-size: 0.95rem;
+  color: rgba($v200, 0.25);
+}
+
+// Toggle personalizado
+.custom-toggle {
+  --background: rgba(107, 33, 168, 0.3);
+  --background-checked: #a855f7;
+  --handle-background: #ddb6fe;
+  --handle-background-checked: #fff;
+  --handle-box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+  width: 44px;
+  height: 24px;
+}
+
+// ─── Danger zone ─────────────────────────────────────────────────
+.danger-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: groupIn 0.5s ease both;
+  animation-delay: var(--g-delay, 0s);
+}
+
+.danger-title { color: rgba($red, 0.7); }
+
+.danger-card {
+  position: relative;
+  border-radius: 18px;
+  background: rgba($red, 0.06);
+  border: 1px solid rgba($red, 0.18);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, $red, rgba($red, 0.2), transparent);
+  }
+}
+
+.danger-divider {
+  height: 1px;
+  background: rgba($red, 0.12);
+  margin: 0 16px;
+}
+
+.danger-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.18s;
+
+  &:active { background: rgba($red, 0.1); }
+
+  &.destructive {
+    .row-label { color: $red; }
+  }
+}
+
+.danger-label { color: $red !important; }
+
+// ─── App version ─────────────────────────────────────────────────
+.app-version {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 16px 0 8px;
+}
+
+.version-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  color: rgba($v300, 0.25);
+}
+
+.version-text {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: rgba($v200, 0.22);
+}
+
+.version-copy {
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: rgba($v200, 0.15);
+  text-align: center;
+}
