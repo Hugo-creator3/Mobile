@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { addIcons } from 'ionicons';
+import { add, businessOutline, callOutline, cardOutline, chevronBackOutline, chevronForwardOutline, closeCircleOutline, codeSlashOutline, colorPaletteOutline, contrastOutline, documentLockOutline, documentTextOutline, eyeOutline, fingerPrintOutline, handLeftOutline, headsetOutline, informationCircleOutline, languageOutline, locationOutline, lockClosedOutline, lockOpenOutline, logOutOutline, mailOutline, moonOutline, notificationsOutline, personCircleOutline, personOutline, phonePortraitOutline, scanOutline, shieldCheckmarkOutline, shieldOutline, sparkles, sparklesOutline, starOutline, timeOutline, timerOutline, trashOutline, warningOutline } from 'ionicons/icons';
+
+
 
 type RowType = 'nav' | 'toggle' | 'info';
 
@@ -295,7 +299,15 @@ export class SettingsComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    addIcons({
+      chevronBackOutline,personOutline, personCircleOutline, chevronForwardOutline, shieldOutline, colorPaletteOutline, notificationsOutline, informationCircleOutline, warningOutline, logOutOutline, trashOutline,
+      codeSlashOutline, documentTextOutline, lockOpenOutline, headsetOutline, starOutline, moonOutline, timeOutline, closeCircleOutline,
+      scanOutline, locationOutline, cardOutline, sparklesOutline, phonePortraitOutline, contrastOutline, languageOutline,
+      eyeOutline, timerOutline, shieldCheckmarkOutline, fingerPrintOutline, businessOutline, mailOutline, callOutline,
+      lockClosedOutline
+    })
+  }
 
   ngOnInit(): void {
     setTimeout(() => { this.pageReady = true; }, 100);

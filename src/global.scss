@@ -77,11 +77,11 @@ html, body {
 }
 
 // ─── IONIC CONTENT RESPONSIVO ─────────────────────────────
+/* Asegura que el cuerpo de la app respete las barras del sistema */
 ion-content {
-  --offset-bottom: 0;
-  --offset-top: 0;
+  --offset-top: env(safe-area-inset-top);
+  --offset-bottom: env(safe-area-inset-bottom);
 }
-
 // ─── TIPOGRAFÍA RESPONSIVA ────────────────────────────────
 html {
   font-size: 16px;

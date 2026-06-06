@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private API = 'http://localhost:3000/api/usuarios';
+  private API = 'https://backendv-4q6s.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
@@ -38,6 +38,6 @@ uploadPhoto(data: FormData): Observable<any> {
 }
 
 getMiTarjeta() {
-  return this.http.get<any>('http://localhost:3000/api/usuarios/mi-tarjeta');
+  return this.http.get<any>('https://backendv-4q6s.onrender.com/api/usuarios/mi-tarjeta');
 }
 }

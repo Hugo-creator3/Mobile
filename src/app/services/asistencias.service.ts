@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AsistenciasService {
 
-  private API = 'http://localhost:3000/api/asistencias';
+  private API = 'https://backendv-4q6s.onrender.com/api/asistencias';
 
   constructor(private http: HttpClient) {}
 

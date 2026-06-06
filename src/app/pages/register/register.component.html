@@ -157,6 +157,7 @@
           <ion-input
             [(ngModel)]="telefono"
             type="tel"
+            maxlength="10"
             placeholder="Teléfono"
             (ionBlur)="markTouched('telefono')"
             (ionInput)="markTouched('telefono')">

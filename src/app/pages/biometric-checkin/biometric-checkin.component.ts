@@ -4,6 +4,10 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Geolocation } from '@capacitor/geolocation';
 import { HttpClient } from '@angular/common/http';
+import { addIcons } from 'ionicons';
+import { cardOutline, chevronBackOutline, keypadOutline, locationOutline } from 'ionicons/icons';
+
+
 
 export type BioState = 'idle' | 'scanning' | 'success' | 'error';
 
@@ -37,7 +41,11 @@ export class BiometricCheckinComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private http: HttpClient
 
-  ) {}
+  ) {
+        addIcons({ chevronBackOutline, locationOutline, cardOutline, keypadOutline
+        })
+
+  }
 
   ngOnInit(): void {
     // Leer datos del punto de acceso desde los params o un servicio
@@ -100,17 +108,17 @@ export class BiometricCheckinComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('token');
 
-    this.http.post('http://localhost:3000/api/geo/validate', {
+    this.http.post('https://backendv-4q6s.onrender.com/api/geo/validate', {
       latitud: lat,
       longitud: lng
     }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
+      
     }).subscribe({
       next: (res: any) => {
 
-        // ✅ SOLO AQUÍ ES ÉXITO REAL
         this.bioState = 'success';
 
         setTimeout(() => {
@@ -120,21 +128,28 @@ export class BiometricCheckinComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
 
-        // ❌ AQUÍ ES ERROR REAL
-        this.bioState = 'error';
+        console.log("ERROR COMPLETO:", err);
+  console.log("RESPUESTA:", err.error);
+
+  this.bioState = 'error';
+    alert(err.error?.message || 'Error desconocido');
+
 
         setTimeout(() => {
           alert('Andas mal'); // o error
         }, 1200);
-
       }
+      
     });
 
   } catch (error) {
     console.error("Error obteniendo ubicación", error);
 
     this.bioState = 'error';
+
+    
   }
+  
 
 }
   // ── Acciones ──────────────────────────────────────────────────────
@@ -174,6 +189,7 @@ export class BiometricCheckinComponent implements OnInit, OnDestroy {
       });
     }
   }
+  
 
   private rand(min: number, max: number): number {
     return Math.random() * (max - min) + min;
@@ -183,4 +199,6 @@ export class BiometricCheckinComponent implements OnInit, OnDestroy {
     if (this.scanTimeout)  clearTimeout(this.scanTimeout);
     if (this.resetTimeout) clearTimeout(this.resetTimeout);
   }
+  
+  
 }

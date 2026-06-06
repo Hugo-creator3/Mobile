@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { addIcons } from 'ionicons';
+import { businessOutline, callOutline, chevronBackOutline, createOutline, mailOutline, maleFemaleOutline, personOutline, shieldCheckmarkOutline, timeOutline } from 'ionicons/icons';
+
+
 
 export interface UserProfile {
   fullName: string;
@@ -120,7 +124,11 @@ export class ProfileComponent implements OnInit {
 constructor(
   private router: Router,
   private authService: AuthService
-) {}
+) {
+  addIcons ({
+    chevronBackOutline, createOutline, timeOutline,shieldCheckmarkOutline, businessOutline, mailOutline, callOutline, personOutline, maleFemaleOutline
+  })
+}
 
 ngOnInit(): void {
   this.authService.getProfile().subscribe({

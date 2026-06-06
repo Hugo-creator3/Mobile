@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class TarjetaService {
 
-  private API = 'http://localhost:3000/api/tarjeta';
+  private API = 'https://backendv-4q6s.onrender.com/api/tarjeta';
 
   constructor(private http: HttpClient) {}
 

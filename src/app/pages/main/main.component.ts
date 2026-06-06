@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { addIcons } from 'ionicons';
+import { cardOutline, chevronForwardOutline, notificationsOutline, shieldCheckmarkOutline, timeOutline, wifiOutline } from 'ionicons/icons';
+
+
 
 
 export interface VirtualCard {
@@ -79,7 +83,11 @@ export class MainComponent implements OnInit {
 constructor(
   private router: Router,
   private authService: AuthService
-) {}
+) {
+  addIcons ({
+    notificationsOutline, shieldCheckmarkOutline, wifiOutline, cardOutline, timeOutline, chevronForwardOutline,
+  })
+}
 
  ngOnInit(): void {
   this.currentDate = this.formatDate(new Date());

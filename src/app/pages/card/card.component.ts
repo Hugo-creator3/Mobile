@@ -4,6 +4,9 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { addIcons } from 'ionicons';
+import { businessOutline, calendarOutline, fingerPrintOutline, layersOutline, locateOutline, lockClosedOutline, mailOutline, scanOutline, shieldCheckmarkOutline, warningOutline, wifiOutline } from 'ionicons/icons';
+
 
 
 
@@ -70,7 +73,11 @@ institution: Institution | null = null;
   private route: ActivatedRoute,
   private tarjetaService: TarjetaService,
   private authService: AuthService    
-  ) {}
+  ) {
+    addIcons({
+      wifiOutline, scanOutline, fingerPrintOutline, warningOutline, businessOutline, shieldCheckmarkOutline, locateOutline, layersOutline, mailOutline, lockClosedOutline, calendarOutline,
+    })
+  }
   
 ngOnInit(): void {
 

@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AsistenciasService } from 'src/app/services/asistencias.service';
+import { addIcons } from 'ionicons';
+import { barbellOutline, businessOutline, cafeOutline, cardOutline, carOutline, checkmarkCircleOutline, checkmarkOutline, chevronBackOutline, closeCircleOutline, closeOutline, desktopOutline, flameOutline, hardwareChipOutline, hourglassOutline, libraryOutline, locationOutline, optionsOutline, scanOutline, timeOutline } from 'ionicons/icons';
+
+
 
 
 export type CheckinStatus = 'success' | 'denied' | 'pending';
@@ -103,7 +107,25 @@ export class HistoryComponent implements OnInit {
   constructor(
   private router: Router,
   private asistenciasService: AsistenciasService
-) {}
+) {
+  addIcons ({
+    chevronBackOutline, 
+    optionsOutline,
+    cardOutline, 
+    timeOutline, 
+    locationOutline, 
+    scanOutline, 
+    desktopOutline, 
+    hardwareChipOutline,
+    barbellOutline,
+    hourglassOutline,
+    businessOutline,
+    carOutline,
+    closeCircleOutline,
+    flameOutline,
+    libraryOutline, cafeOutline, checkmarkOutline, closeOutline,checkmarkCircleOutline
+  })
+}
 
   ngOnInit(): void {
 

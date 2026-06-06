@@ -28,7 +28,7 @@
   </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="history-content">
+<ion-content class="history-content">
 
   <!-- Fondo ambiental -->
   <div class="ambient-bg">
@@ -37,16 +37,16 @@
     <div class="grid-overlay"></div>
   </div>
 
-  <!-- Resumen estadístico -->
-  <div class="stats-row" [class.visible]="pageReady">
-    <div class="stat-card" *ngFor="let s of stats">
-      <div class="stat-icon" [style.--color]="s.color">
-        <ion-icon [name]="s.icon"></ion-icon>
+    <!-- Resumen estadístico -->
+    <div class="stats-row" [class.visible]="pageReady">
+      <div class="stat-card" *ngFor="let s of stats">
+        <div class="stat-icon" [style.--color]="s.color">
+          <ion-icon [name]="s.icon"></ion-icon>
+        </div>
+        <span class="stat-value">{{ s.value }}</span>
+        <span class="stat-label">{{ s.label }}</span>
       </div>
-      <span class="stat-value">{{ s.value }}</span>
-      <span class="stat-label">{{ s.label }}</span>
     </div>
-  </div>
 
   <!-- Lista agrupada por fecha -->
   <div class="checkin-list" [class.visible]="pageReady">

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { addIcons } from 'ionicons';
+import {arrowForwardOutline, locationOutline, personOutline, shieldCheckmarkOutline, fingerPrintOutline} from 'ionicons/icons';
 
 interface HexItem {
   x: string;
@@ -24,7 +26,11 @@ export class HomePage implements OnInit {
   /** 9 celdas para el patrón QR de la tarjeta */
   qrDots: number[] = Array(9).fill(0);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    addIcons({ arrowForwardOutline,  locationOutline, personOutline, shieldCheckmarkOutline, fingerPrintOutline, 
+      
+    });
+  }
 
   ngOnInit(): void {
     this.generateHexagons();
