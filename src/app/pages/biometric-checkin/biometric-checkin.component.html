@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="bio-content">
+<ion-content [fullscreen]="false" class="bio-content">
 
   <!-- Fondo ambiental -->
   <div class="ambient-bg">
@@ -54,6 +54,10 @@
           <span class="cic-value">{{ cardName }}</span>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-container">
+      <p class="error-text">{{ errorMessage }}</p>
     </div>
 
     <!-- Zona de huella digital -->

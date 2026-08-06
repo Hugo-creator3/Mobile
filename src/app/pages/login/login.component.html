@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="login-content">
+<ion-content [fullscreen]="false" class="login-content">
 
   <!-- Fondo ambiental -->
   <div class="ambient-bg">
@@ -75,9 +75,10 @@
             <ion-icon name="lock-closed-outline"></ion-icon>
           </div>
           <ion-item lines="none" class="custom-input">
-            <ion-input [(ngModel)]="password" type="password" placeholder="Password"></ion-input>
+            <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"></ion-input>
           </ion-item>
-          <button  (click)="togglePassword()">
+          <button type="button" class="eye-btn" (click)="togglePassword()" aria-label="Mostrar u ocultar password">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
           </button>
         </div>
 

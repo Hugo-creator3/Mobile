@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { 
+  IonContent, 
+  IonItem, 
+  IonInput, 
+  IonIcon,
+  IonCheckbox
+} from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +17,15 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [IonicModule, FormsModule, CommonModule],
+   imports: [
+    IonContent,
+    IonItem,
+    IonInput,
+    IonIcon,
+    IonCheckbox,
+    FormsModule,
+    CommonModule
+  ],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -39,7 +53,7 @@ this.errorMessage = ''; // Limpiamos el error antes de intentar
     }).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/main']);
+        this.router.navigate(['/tabs/main']);
       },
       error: (err) => {
         console.error(err);

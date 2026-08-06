@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { 
+  IonContent, IonToggle,
+  IonIcon, IonHeader } from '@ionic/angular/standalone';import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
-import { add, businessOutline, callOutline, cardOutline, chevronBackOutline, chevronForwardOutline, closeCircleOutline, codeSlashOutline, colorPaletteOutline, contrastOutline, documentLockOutline, documentTextOutline, eyeOutline, fingerPrintOutline, handLeftOutline, headsetOutline, informationCircleOutline, languageOutline, locationOutline, lockClosedOutline, lockOpenOutline, logOutOutline, mailOutline, moonOutline, notificationsOutline, personCircleOutline, personOutline, phonePortraitOutline, scanOutline, shieldCheckmarkOutline, shieldOutline, sparkles, sparklesOutline, starOutline, timeOutline, timerOutline, trashOutline, warningOutline } from 'ionicons/icons';
+import { add, businessOutline, callOutline, addOutline, cardOutline, chevronBackOutline, chevronForwardOutline, closeCircleOutline, codeSlashOutline, colorPaletteOutline, contrastOutline, documentLockOutline, documentTextOutline, eyeOutline, fingerPrintOutline, handLeftOutline, headsetOutline, informationCircleOutline, languageOutline, locationOutline, lockClosedOutline, lockOpenOutline, logOutOutline, mailOutline, moonOutline, notificationsOutline, personCircleOutline, personOutline, phonePortraitOutline, scanOutline, shieldCheckmarkOutline, shieldOutline, sparkles, sparklesOutline, starOutline, timeOutline, timerOutline, trashOutline, warningOutline } from 'ionicons/icons';
 
 
 
@@ -28,7 +29,7 @@ export interface SettingsRow {
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonContent,IonIcon, IonToggle, IonHeader, CommonModule, FormsModule],
 })
 export class SettingsComponent implements OnInit {
 
@@ -305,7 +306,7 @@ export class SettingsComponent implements OnInit {
       codeSlashOutline, documentTextOutline, lockOpenOutline, headsetOutline, starOutline, moonOutline, timeOutline, closeCircleOutline,
       scanOutline, locationOutline, cardOutline, sparklesOutline, phonePortraitOutline, contrastOutline, languageOutline,
       eyeOutline, timerOutline, shieldCheckmarkOutline, fingerPrintOutline, businessOutline, mailOutline, callOutline,
-      lockClosedOutline
+      lockClosedOutline, addOutline
     })
   }
 

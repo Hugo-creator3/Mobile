@@ -524,3 +524,10 @@
   0%, 100% { opacity: 0.8; }
   50%       { opacity: 0.3; }
 }
+.main-wrapper {
+  // Ajuste para el notch / barra de notificaciones
+  padding-top: calc(env(safe-area-inset-top) + 56px);
+  
+  // Ajuste para la barra de navegación inferior (si la hay)
+  padding-bottom: calc(env(safe-area-inset-bottom) + 48px);
+}

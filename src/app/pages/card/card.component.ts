@@ -1,11 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { 
+  IonContent, 
+  IonItem, 
+  IonInput, 
+  IonIcon,
+  IonCheckbox, IonHeader } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { addIcons } from 'ionicons';
-import { businessOutline, calendarOutline, fingerPrintOutline, layersOutline, locateOutline, lockClosedOutline, mailOutline, scanOutline, shieldCheckmarkOutline, warningOutline, wifiOutline } from 'ionicons/icons';
+import { businessOutline, calendarOutline, fingerPrintOutline, layersOutline, locateOutline, lockClosedOutline, mailOutline, scanOutline, shieldCheckmarkOutline, warningOutline, wifiOutline, chevronBackOutline, locationOutline } from 'ionicons/icons';
 
 
 
@@ -42,8 +47,12 @@ interface InstRow {
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
-})
+imports: [
+    IonContent,
+    IonIcon,
+    IonHeader,
+    CommonModule
+  ],})
 export class CardComponent implements OnInit, OnDestroy {
 
   pageReady  = false;
@@ -74,9 +83,7 @@ institution: Institution | null = null;
   private tarjetaService: TarjetaService,
   private authService: AuthService    
   ) {
-    addIcons({
-      wifiOutline, scanOutline, fingerPrintOutline, warningOutline, businessOutline, shieldCheckmarkOutline, locateOutline, layersOutline, mailOutline, lockClosedOutline, calendarOutline,
-    })
+    addIcons({chevronBackOutline,wifiOutline,scanOutline,fingerPrintOutline,warningOutline,businessOutline,shieldCheckmarkOutline,locationOutline,layersOutline,mailOutline,lockClosedOutline,calendarOutline,locateOutline,});
   }
   
 ngOnInit(): void {
@@ -170,7 +177,7 @@ ngOnInit(): void {
   }
 
   onBack(): void {
-    this.router.navigate(['/main']);
+    this.router.navigate(['/tabs/main']);
   }
   GoCheckin(): void {
     this.router.navigate(['/biometric-checkin']);

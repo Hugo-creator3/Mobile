@@ -364,6 +364,22 @@
   display: flex; flex-direction: column; align-items: center; gap: 8px;
 }
 
+.error-container {
+  width: 100%; max-width: 320px;
+  background: rgba(255, 77, 77, 0.12);
+  border-left: 3px solid #ff4d4d;
+  padding: 12px 14px;
+  margin: 0 auto 14px;
+  border-radius: 12px;
+}
+
+.error-text {
+  margin: 0;
+  color: #ff4d4d;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
 .inst-title {
   margin: 0;
   font-family: 'Orbitron', sans-serif;

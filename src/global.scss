@@ -117,8 +117,8 @@ body {
 html, body, ion-app {
   height: 100%;
   width: 100%;
-  overflow: hidden;
-}
+  overflow-x: hidden; 
+  overflow-y: auto;   }
 
 // ─── MEDIA QUERIES GLOBALES ───────────────────────────────
 
@@ -191,4 +191,92 @@ html, body, ion-app {
   button, [role="button"] {
     touch-action: manipulation;
   }
+}
+
+// ─── FORCE INPUT VISIBILITY (IONIC SHADOW DOM FIX) ────────
+// These rules force ion-input and ion-item visibility across all views
+// to override Ionic's default encapsulation
+
+ion-item.custom-input {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  height: 52px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+ion-item.custom-input::part(native) {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  height: 52px;
+}
+
+ion-item.custom-input ion-input,
+ion-item.custom-input ion-select {
+  width: 100%;
+  min-height: 52px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+ion-item.custom-input ion-input::part(native) {
+  min-height: 52px;
+  color: rgba(255, 255, 255, 0.96);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+// ─── Android Input Touch Fix ─────────────────────────────────────
+
+// Evita que Ionic bloquee eventos táctiles en inputs dentro de ion-item
+ion-item.custom-input {
+  --overflow: visible;
+  contain: none;
+}
+
+ion-item.custom-input::part(native) {
+  overflow: visible;
+  contain: none;
+  pointer-events: auto;
+  touch-action: auto;
+}
+
+// Fix para ion-icon que no aparece en Android WebView
+ion-icon {
+  pointer-events: none;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+// ion-app ocupa todo pero SIN márgenes que se muevan con scroll
+ion-app {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+// ion-content no agrega offsets propios
+ion-content {
+  --offset-top: 0px !important;
+  --offset-bottom: 0px !important;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+}
+
+// El router outlet respeta las barras
+ion-router-outlet {
+  padding-top: env(safe-area-inset-top) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+// ion-header respeta la barra de notificaciones
+ion-header {
+  padding-top: env(safe-area-inset-top) !important;
+}
+
+// ion-tab-bar respeta la barra de botones del sistema
+ion-tab-bar {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+  height: calc(56px + env(safe-area-inset-bottom)) !important;
 }

@@ -181,6 +181,7 @@
 
 // ─── Field wrap ───────────────────────────────────────────────────
 .field-wrap {
+  position: relative;
   display: flex; align-items: stretch; gap: 0;
   border-radius: 14px; overflow: hidden;
   border: 1px solid rgba($v400, 0.12);
@@ -195,10 +196,13 @@
 }
 
 .field-icon {
+  position: relative;
+  z-index: 2;
   width: 46px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: rgba(255,255,255,0.03);
   border-right: 1px solid rgba($v400, 0.1);
+  pointer-events: none;
   ion-icon {
     font-size: 1.05rem;
     color: var(--f-color, #{$v300});
@@ -208,32 +212,87 @@
 
 // Ion item reseteado
 .custom-input {
+  position: relative;
+  z-index: 1;
   flex: 1;
-  --background:           transparent;
-  --border-color:         transparent;
-  --highlight-color-focused: transparent;
-  --padding-start:        14px;
-  --padding-end:          14px;
-  --padding-top:          0;
-  --padding-bottom:       0;
-  --min-height:           50px;
-  --color:                rgba(#{$white}, 0.88);
-  --placeholder-color:    rgba(#{$v200}, 0.35);
-  --placeholder-opacity:  1;
+  display: flex !important;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px !important;
+  height: 52px !important;
+  
+  --background:           rgba($v900, 0.55) !important;
+  --border-radius:        18px !important;
+  --border-color:         rgba($v400, 0.25) !important;
+  --highlight-color-focused: rgba($v400, 0.45) !important;
+  --padding-start:        14px !important;
+  --padding-end:          14px !important;
+  --inner-padding-start:  0 !important;
+  --inner-padding-end:    0 !important;
+  --padding-top:          0 !important;
+  --padding-bottom:       0 !important;
+  --min-height:           52px !important;
+  --color:                rgba(255, 255, 255, 0.96) !important;
+  --placeholder-color:    rgba(255, 255, 255, 0.75) !important;
+  --placeholder-opacity:  1 !important;
+  
+  border-radius: 18px;
+  background: rgba($v900, 0.55) !important;
+  box-shadow: inset 0 0 0 1px rgba($v400, 0.2) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 
   ion-input {
-    --color:              rgba(#{$white}, 0.88);
-    --placeholder-color:  rgba(#{$v200}, 0.35);
+    --color:              rgba(255, 255, 255, 0.96) !important;
+    --placeholder-color:  rgba(255, 255, 255, 0.75) !important;
     font-size: 0.88rem;
     letter-spacing: 0.03em;
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  ion-input::part(native) {
+    color: rgba(255, 255, 255, 0.96) !important;
+    background: transparent !important;
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 14px !important;
+    line-height: 1.2 !important;
+    font-size: 0.88rem !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  ion-input::part(native)::-webkit-input-placeholder,
+  ion-input::part(native)::-moz-placeholder,
+  ion-input::part(native):-ms-input-placeholder,
+  ion-input::part(native)::placeholder {
+    color: rgba(255, 255, 255, 0.75) !important;
+    opacity: 1 !important;
+    font-size: 0.88rem !important;
   }
 
   ion-select {
-    color: rgba($white, 0.88);
-    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.96) !important;
+    font-size: 0.88rem !important;
     letter-spacing: 0.03em;
-    --placeholder-color: rgba(#{$v200}, 0.35);
-    width: 100%;
+    --placeholder-color: rgba(255, 255, 255, 0.75) !important;
+    width: 100% !important;
+    min-height: 52px !important;
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
 

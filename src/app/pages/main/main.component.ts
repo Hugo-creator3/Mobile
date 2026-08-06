@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { 
+  IonContent, 
+  IonItem, 
+  IonInput, 
+  IonIcon,
+  IonCheckbox, IonHeader } from '@ionic/angular/standalone';import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { addIcons } from 'ionicons';
-import { cardOutline, chevronForwardOutline, notificationsOutline, shieldCheckmarkOutline, timeOutline, wifiOutline } from 'ionicons/icons';
+import { cardOutline, chevronForwardOutline, notificationsOutline, shieldCheckmarkOutline, timeOutline, wifiOutline, addOutline } from 'ionicons/icons';
 
 
 
@@ -28,7 +32,11 @@ export interface VirtualCard {
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+   imports: [IonHeader, 
+    IonContent,
+    IonIcon,
+    CommonModule
+  ],
 })
 export class MainComponent implements OnInit {
 
@@ -85,7 +93,7 @@ constructor(
   private authService: AuthService
 ) {
   addIcons ({
-    notificationsOutline, shieldCheckmarkOutline, wifiOutline, cardOutline, timeOutline, chevronForwardOutline,
+    notificationsOutline, addOutline, shieldCheckmarkOutline, wifiOutline, cardOutline, timeOutline, chevronForwardOutline,
   })
 }
 

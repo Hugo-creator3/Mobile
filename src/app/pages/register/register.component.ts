@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { 
+  IonContent, 
+  IonItem, 
+  IonLabel,
+  IonDatetimeButton,
+  IonModal,
+  IonDatetime,
+  IonSelectOption,
+  IonInput, 
+  IonSelect,
+  IonIcon, IonHeader } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -38,8 +48,20 @@ interface FormErrors {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
-})
+  imports: [ 
+    IonContent,
+    IonLabel,
+    IonSelectOption,
+    IonSelect,
+    IonDatetimeButton,
+    IonModal,
+    IonDatetime,
+    IonInput,
+    IonItem,
+    IonIcon,
+    FormsModule,
+    CommonModule
+  ],})
 export class RegisterComponent {
 
   // ─── Modelo de datos ──────────────────────────────────────────────────────

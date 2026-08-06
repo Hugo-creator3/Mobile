@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { 
+  IonTabs, IonTabBar, IonTabButton, IonIcon, 
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { addIcons } from 'ionicons';
 
@@ -17,10 +18,10 @@ interface NavTab {
 }
 
 const NAV_TABS: NavTab[] = [
-  { key: 'inicio',         route: '/main',     index: 0 },
-  { key: 'perfil',         route: '/profile',  index: 1 },
-  { key: 'historial',      route: '/history',  index: 2 },
-  { key: 'configuracion',  route: '/settings', index: 3 },
+  { key: 'inicio',        route: '/tabs/main',     index: 0 },
+  { key: 'perfil',        route: '/tabs/profile',  index: 1 },
+  { key: 'historial',     route: '/tabs/history',  index: 2 },
+  { key: 'configuracion', route: '/tabs/settings', index: 3 },
 ];
 
 @Component({
@@ -28,7 +29,7 @@ const NAV_TABS: NavTab[] = [
   templateUrl: './nabvar.component.html',
   styleUrls: ['./nabvar.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterModule],
+imports: [CommonModule,  IonTabs, IonTabBar, IonTabButton, IonIcon],
 })
 export class NabvarComponent implements OnInit {
 

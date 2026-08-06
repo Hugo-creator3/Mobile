@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLinkActive } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { 
+  IonContent, 
+  IonItem, 
+  IonInput, 
+  IonIcon,
+  IonCheckbox, IonHeader } from '@ionic/angular/standalone';import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import {arrowForwardOutline, locationOutline, personOutline, shieldCheckmarkOutline, fingerPrintOutline} from 'ionicons/icons';
 
@@ -16,8 +20,11 @@ interface HexItem {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
-})
+imports: [
+    IonContent,
+    IonIcon,
+    CommonModule
+  ],})
 export class HomePage implements OnInit {
 
   /** Posiciones de los hexágonos decorativos del fondo */
